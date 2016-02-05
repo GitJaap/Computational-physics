@@ -133,7 +133,7 @@ def evolveTimeFixedT(pos,vel,numtime,N,L,dt,Tfixed):
     return pos,vel,K,V,rV
     
 def plotEnergy(timesteps,K,V):
-    fig = plt.figure(1)
+    plt.figure(1)
     plt.plot(range(timesteps),K,'b',range(timesteps),V,'g',range(timesteps),K+V,'r')
     plt.legend(('Kinetic', 'Potential', 'Total'))
     plt.draw()
@@ -148,12 +148,16 @@ def plotParticles(pos,L):
     plt.draw()
 
 def plotPressure(timesteps,P):
-    fig = plt.figure(3)
+    plt.figure(3)
     plt.plot(range(timesteps),P)
     plt.legend(('Pressure'))
     plt.draw()
     
-    
+def plotPversusRho(rhoij,Tij,Pij):
+    plt.figure(4)
+    plt.plot(rhoij[:,0],Pij[:,0]/Tij[:,0],rhoij[:,1],Pij[:,1]/Tij[:,1],rhoij[:,2],Pij[:,2]/Tij[:,2])
+    plt.legend(('T = ' + str(Tij[0][0]),'T = ' + str(Tij[0][1]),'T = ' + str(Tij[0][2])),loc=2) 
+    plt.draw()
  
     
     
