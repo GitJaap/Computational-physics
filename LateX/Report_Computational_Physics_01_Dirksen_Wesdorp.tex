@@ -1,0 +1,155 @@
+\documentclass[twoside]{article} 
+\usepackage{pgfplots} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[procnames]{listings}
+\usepackage{color}
+\usepackage{lipsum} % Package to generate dummy text throughout this template
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\Roman{subsection}} % Roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{Computational Physics: Pairwise interaction model of an FCC packed material and the verification of theoretically proved properties by simulation $\bullet$ February 2016} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{\vspace{-15mm}\fontsize{18pt}{10pt}\selectfont\textbf{Pairwise interaction model of an FCC packed material and the verification of theoretically proved properties by simulation}} % Article title
+
+\author{
+\large
+\textsc{Jaap Wesdorp}, $\hspace{10pt}$ \textsc{Bas Dirksen} \\ % Your name
+\normalsize $^\dagger$Delft University of Technology \\ % Your institution
+\normalsize \href{mailto:john@smith.com}{b.dirksen@student.tudelft.nl}\\ \normalsize \href{mailto:john@smith.com}{j.j.wesdorp@student.tudelft.nl} % Your email address
+\vspace{-5mm}
+}
+\date{}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+	
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,113}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+
+\lstset{language=Python, 
+	basicstyle=\ttfamily\small, 
+	keywordstyle=\color{keywords},
+	commentstyle=\color{comments},
+	stringstyle=\color{red},
+	showstringspaces=false,
+	identifierstyle=\color{green},
+	procnamekeys={def,class}}
+
+\maketitle % Insert title
+
+\thispagestyle{fancy} % All pages have headers and footers
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+
+\noindent  Abstract here
+
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+\lettrine[nindent=1em,lines=3]{T} \ \ \ he introduction starts here
+
+%------------------------------------------------
+
+\section{Methods}
+\subsection{Problem Formulation}
+In this paper, we consider 
+\section{Results and Discussion}
+\subsection{Results}
+
+\section{Conclusions}
+This study shows that 
+\clearpage
+
+\section{Appendix A - Python Code}\vspace{1em}
+\subsection{Main program}
+\begin{lstlisting}
+%%python CODE HIER
+for i in range(0,10):
+	do cool stuff
+	
+\end{lstlisting}\vspace{1em}\clearpage
+
+
+\section{Appendix B}
+
+
+\clearpage
+
+\begin{thebibliography}{1}
+%%random voorbeeld boeken
+\bibitem{ref1}
+Baron, S. (1996).
+\newblock Medical Microbiology, 4th edition
+\newblock {\em University of Texas Medical Branch}, Ch.17
+
+\bibitem{ref2}
+Carreau, A., El Hafny-Rahbi, B., Matejuk, A., Grillon, C., Kieda, C. (2011).
+\newblock Why is the partial oxygen pressure of human tissues a crucial parameter? Small molecules and hypoxia.
+\newblock {\em J Cell Mol Med}, 15:1239-53
+\end{thebibliography}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
