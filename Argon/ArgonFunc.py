@@ -51,27 +51,12 @@ def init_vel(N,T):
     v[1,:] -= v[1,:].mean()
     v[2,:] -= v[2,:].mean()
     return v
-    
-    
-# Force between particle i and j
-@jit
-def forceLJ(xi,yi,zi,xj,yj,zj,L):
-    dx = xi-(xj + np.around((xi-xj)/L)*L) 
-    dy = yi-(yj + np.around((yi-yj)/L)*L) 
-    dz = zi-(zj + np.around((zi-zj)/L)*L) 
-    r2 = dx*dx + dy*dy + dz*dz
-    pref = 48/(r2**7) - 24/(r2**4)
-    Fx = pref*dx
-    Fy = pref*dy
-    Fz = pref*dz
-    V = 4/(r2**6) - 4/(r2**3)
-    rV = -48/(r2**6) + 24/(r2**3) #r_ij * dV/dr (r_ij)
-    return Fx, Fy, Fz, V, rV
+
 
 # Force between particle i and j
-# also returns the distance between particles
+# also returns the distance between particles and potential energy
 @jit
-def forceLJDis(xi,yi,zi,xj,yj,zj, L):
+def forceLJ(xi,yi,zi,xj,yj,zj, L):
     dx = xi-(xj + np.around((xi-xj)/L)*L)
     dy = yi-(yj + np.around((yi-yj)/L)*L)
     dz = zi-(zj + np.around((zi-zj)/L)*L)
@@ -94,7 +79,7 @@ def forceTotal(pos,N,L):
     rV = 0.0
     for i in range(N):
         for j in range(i):
-            dFx,dFy,dFz,dV,drV = forceLJ(pos[0,i],pos[1,i],pos[2,i],pos[0,j],pos[1,j],pos[2,j],L)
+            dFx,dFy,dFz,dV,drV, r2 = forceLJ(pos[0,i],pos[1,i],pos[2,i],pos[0,j],pos[1,j],pos[2,j],L)
             Fx[i] += dFx
             Fy[i] += dFy
             Fz[i] += dFz
@@ -108,14 +93,13 @@ def forceTotal(pos,N,L):
     F = np.array([Fx,Fy,Fz])
     return F,V,rV
 
-# Total force on each particle in a vector, and total potential energy of all particles.
-#  With the distance calculation included
 @jit
-def forceTotalDis(pos, N, L):
+def forceTotalAndN(pos, N, L, nBins):
     Fx = np.zeros(N)
     Fy = np.zeros(N)
     Fz = np.zeros(N)
-    rM = np.zeros((N,N))
+    nr = np.zeros(nBins)
+    binSize  = np.sqrt(3) * L / nBins
 
     V = 0.0
     rV = 0.0
@@ -125,19 +109,18 @@ def forceTotalDis(pos, N, L):
             Fx[i] += dFx
             Fy[i] += dFy
             Fz[i] += dFz
-            rM[i,j] = np.sqrt(r2)
-            rM[j,i] = np.sqrt(r2)
+
             # action = - reaction
             Fx[j] -= dFx
             Fy[j] -= dFy
             Fz[j] -= dFz
-
+            binIndex = round(math.sqrt(r2) / binSize)
+            nr[binIndex] += 1 #add count of distance
             V += dV
             rV += drV
 
     F = np.array([Fx,Fy,Fz])
-    return F ,V , rV ,rM
-
+    return F ,V , rV , nr
     
 def evolveTimeConserveE(pos,vel,numtime,N,L,dt):
     #Initialize kinetic and potential energy vectors
@@ -169,7 +152,7 @@ def evolveTimeFixedT(pos,vel,numtime,N,L,dt,Tfixed):
         pos += dt*vel
         pos %= L
 
-        F,V[i],rV[i] = forceTotal(pos,N,L) 
+        F,V[i],rV[i] = forceTotal(pos,N,L)
         vel += 0.5*dt*F
 
         scale = np.sqrt(3*Tfixed/np.mean(vel[0,:]**2+vel[1,:]**2+vel[2,:]**2))
@@ -195,7 +178,8 @@ def evolveTimeFixedTAndCalcG(pos, vel, numtime, N, L, dt, Tfixed, nBins):
         pos += dt*vel
         pos %= L
 
-        F,V[i],rV[i], rM = forceTotalDis(pos,N,L)
+        F, V[i], rV[i], nri = forceTotalAndN(pos,N,L, nBins)
+        nr[i, :] = nri
         vel += 0.5*dt*F
 
         scale = np.sqrt(3*Tfixed/np.mean(vel[0,:]**2+vel[1,:]**2+vel[2,:]**2))
@@ -203,17 +187,16 @@ def evolveTimeFixedTAndCalcG(pos, vel, numtime, N, L, dt, Tfixed, nBins):
 
         K[i] = 0.5*np.sum(vel[0,:]**2+vel[1,:]**2+vel[2,:]**2)
 
-        #calculate n(r)
-        nr[i,:], rVech = np.histogram(np.reshape(rM,-1), nBins, (0, np.sqrt(3) * L)) #nBin bin histogram
+    return pos,vel,K,V,rV, nr
 
-    #calculate g
+def correlation(N, L, nBins, nr, offset = 2000): #offset is the waiting time until equilibrium is reached
+     #calculate g
     rVec = np.linspace(0, np.sqrt(3) * L, nBins)
     dr = rVec[1] - rVec[0]
     rVec += 0.5 * dr
-    g = (L * L * L) / (N * (N-1)) * np.mean(nr[2000:numtime,:], axis = 0) / (4 * 3.14 * rVec ** 2 * dr)
-
-    return pos,vel,K,V,rV, g, rVec, nr
-
+    #skip first 2000 steps.
+    g = 2 * (L * L * L) / (N * (N-1)) * np.mean(nr[offset:len(nr),:], axis = 0) / (4 * 3.14 * rVec ** 2 * dr)
+    return rVec, g
 
 
 
