@@ -105,7 +105,7 @@ def forceTotalAndN(pos, N, L, nBins):
     rV = 0.0
     for i in range(N):
         for j in range(i):
-            dFx,dFy,dFz,dV,drV, r2 = forceLJDis(pos[0,i],pos[1,i],pos[2,i],pos[0,j],pos[1,j],pos[2,j],L)
+            dFx,dFy,dFz,dV,drV, r2 = forceLJ(pos[0,i],pos[1,i],pos[2,i],pos[0,j],pos[1,j],pos[2,j],L)
             Fx[i] += dFx
             Fy[i] += dFy
             Fz[i] += dFz
@@ -202,30 +202,18 @@ def correlation(N, L, nBins, nr, offset = 2000): #offset is the waiting time unt
 
     
 def plotEnergy(timesteps,K,V):
-    plt.figure(1)
+    plt.figure()
     plt.plot(range(timesteps),K,'b',range(timesteps),V,'g',range(timesteps),K+V,'r')
     plt.legend(('Kinetic', 'Potential', 'Total'))
     plt.draw()
     
 def plotParticles(pos,L):
-    fig = plt.figure(2)
+    fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.scatter(pos[0,:],pos[1,:],pos[2,:])
     plt.xlim(0,L)
     plt.ylim(0,L)
     ax.set_zlim(0,L)
-    plt.draw()
-
-def plotPressure(timesteps,P):
-    plt.figure(3)
-    plt.plot(range(timesteps),P)
-    plt.legend(('Pressure'))
-    plt.draw()
-    
-def plotPversusRho(rhoij,Tij,Pij):
-    plt.figure(4)
-    plt.plot(rhoij[:,0],Pij[:,0]/Tij[:,0],rhoij[:,1],Pij[:,1]/Tij[:,1],rhoij[:,2],Pij[:,2]/Tij[:,2])
-    plt.legend(('T = ' + str(Tij[0][0]),'T = ' + str(Tij[0][1]),'T = ' + str(Tij[0][2])),loc=2) 
     plt.draw()
  
     
