@@ -105,7 +105,7 @@ def forceTotalAndN(pos, N, L, nBins):
     rV = 0.0
     for i in range(N):
         for j in range(i):
-            dFx,dFy,dFz,dV,drV, r2 = forceLJDis(pos[0,i],pos[1,i],pos[2,i],pos[0,j],pos[1,j],pos[2,j],L)
+            dFx,dFy,dFz,dV,drV, r2 = forceLJ(pos[0,i],pos[1,i],pos[2,i],pos[0,j],pos[1,j],pos[2,j],L)
             Fx[i] += dFx
             Fy[i] += dFy
             Fz[i] += dFz

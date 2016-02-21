@@ -1,14 +1,14 @@
 \documentclass[twoside]{article} 
-\usepackage{pgfplots} 
 \usepackage{amsmath}
 \usepackage{amsfonts}
-\usepackage{graphicx}
+\usepackage[pdftex]{graphicx}
 \usepackage[procnames]{listings}
 \usepackage{color}
 \usepackage{lipsum} % Package to generate dummy text throughout this template
 \usepackage{braket}
-\usepackage{pgf}
-\usepackage{tikz}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+
 
 \usepackage[sc]{mathpazo} % Use the Palatino font
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
@@ -188,6 +188,30 @@
 	Using the parameters $N=864$, $\rho=0.01$ and $T=2.0$ simulating a hot and dilute gas, we compute the heat capacity at constant volume using \eqref{eq_Lebowitz}. We find $\frac{C_V}{N} = 1.509  \pm 0.002 $ in units of $k_B$. We see that this is very close to the ideal gas value of $C_V = \frac{3}{2} N k_B$ for an ideal gas. The reason that it deviates slightly from the ideal gas case is because even though we simulate a hot and dilute gas, there is still a little bit of interaction between the argon particles, whereas the ideal gas model assumes no interaction at all.
 	
 	In a second simulation we used $N=$, $\rho=0.99$ and $T=0.1$ simulating a cold, dense solid. Computing the heat capacity using these parameters results in $\frac{C_V}{N} = ... $. This is close to the theoretical result of $C_V = 3 N k_B$ for a system of $N$ independent particles with 3 degrees of freedom in velocity and 3 degrees of freedom in a harmonic potential.
+	
+	\subsection{Correlation function}
+	For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using eq.\ref{eq_correlation}. 
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{figure_corr_gas.eps}
+\caption{Correlation function plot for a gas, with density $\rho = 0.8$ and $T = 1$}
+\label{fig:figure_corr_gas}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figure_corr_liquid.eps}
+	\caption{Correlation function plot for a liquid, with density $\rho = 0.96$ and $T = 1$}
+	\label{fig:figure_corr_gas}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figure_corr_solid.eps}
+	\caption{Correlation function plot for a liquid, with density $\rho = 1$ and $T = 0.1$}
+	\label{fig:figure_corr_gas}
+\end{figure}
+
 	
 	\section{Conclusions}
 	\lipsum[4]
