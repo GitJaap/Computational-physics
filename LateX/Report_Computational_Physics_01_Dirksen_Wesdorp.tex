@@ -1,11 +1,14 @@
 \documentclass[twoside]{article} 
-\usepackage{pgfplots} 
 \usepackage{amsmath}
 \usepackage{amsfonts}
-\usepackage{graphicx}
+\usepackage[pdftex]{graphicx}
 \usepackage[procnames]{listings}
 \usepackage{color}
 \usepackage{lipsum} % Package to generate dummy text throughout this template
+\usepackage{braket}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+
 
 \usepackage[sc]{mathpazo} % Use the Palatino font
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
@@ -41,8 +44,8 @@
 {	
 	\fancyhf{}
 	\renewcommand{\headrulewidth}{0pt}
-   	\fancyfoot[RO,LE]{\thepage}
-   	\fancyfoot[CO,CE]{Jaap Wesdorp \& Bas Dirkse}
+	\fancyfoot[RO,LE]{\thepage}
+	\fancyfoot[CO,CE]{Jaap Wesdorp \& Bas Dirkse}
 }
 
 \usepackage{subcaption}
@@ -55,11 +58,11 @@
 \title{\vspace{-15mm}\fontsize{18pt}{10pt}\selectfont\textbf{Molecular Dynamics Simulation of a Lenard-Jones Interacting Molecule for Obtaining Macroscopic Static Physical Properties}} % Article title
 
 \author{
-\large
-\textsc{Jaap Wesdorp}$^\dagger$, $\hspace{10pt}$ \textsc{Bas Dirkse}$^\dagger$ \\ % Your name
-\normalsize $^\dagger$Delft University of Technology \\ % Your institution
-\normalsize \href{mailto:j.j.wesdorp@student.tudelft.nl}{j.j.wesdorp@student.tudelft.nl} \\
-\normalsize \href{mailto:b.dirkse@student.tudelft.nl}{b.dirkse@student.tudelft.nl} 
+	\large
+	\textsc{Jaap Wesdorp}$^\dagger$, $\hspace{10pt}$ \textsc{Bas Dirkse}$^\dagger$ \\ % Your name
+	\normalsize $^\dagger$Delft University of Technology \\ % Your institution
+	\normalsize \href{mailto:j.j.wesdorp@student.tudelft.nl}{j.j.wesdorp@student.tudelft.nl} \\
+	\normalsize \href{mailto:b.dirkse@student.tudelft.nl}{b.dirkse@student.tudelft.nl} 
 }
 \date{\today\vspace{-8mm}}
 
@@ -67,96 +70,180 @@
 
 \begin{document}
 	
-\definecolor{keywords}{RGB}{255,0,90}
-\definecolor{comments}{RGB}{0,0,113}
-\definecolor{red}{RGB}{160,0,0}
-\definecolor{green}{RGB}{0,150,0}
+	\definecolor{keywords}{RGB}{255,0,90}
+	\definecolor{comments}{RGB}{0,0,113}
+	\definecolor{red}{RGB}{160,0,0}
+	\definecolor{green}{RGB}{0,150,0}
+	
+	\lstset{language=Python, 
+		basicstyle=\ttfamily\small, 
+		keywordstyle=\color{keywords},
+		commentstyle=\color{comments},
+		stringstyle=\color{red},
+		showstringspaces=false,
+		identifierstyle=\color{green},
+		procnamekeys={def,class}}
+	
+	\maketitle % Insert title
+	\thispagestyle{firststyle} % Only footer on first page
+	
+	%----------------------------------------------------------------------------------------
+	%	ABSTRACT
+	%----------------------------------------------------------------------------------------
+	
+	\begin{abstract}
+		\noindent  \lipsum[1]
+		
+	\end{abstract}
+	
+	%----------------------------------------------------------------------------------------
+	%	ARTICLE CONTENTS
+	%----------------------------------------------------------------------------------------
+	
+	\section{Introduction}
+	
+	\lettrine[nindent=1em,lines=2]{I}
+	n this paper we intend to derive experimental macroscopic properties of a material from a microscopic description of the molecular interactions. In statistical physics many macroscopic quantities of many-particle systems can be found as an ensemble average over the possible microscopic states. Any practical macroscopic system consists of so many possible microscopic states that it is infeasible to average over all of the possible states computationally. But given a large subset of the possible states, we may assume that physical quantities averaged over the subset are close to the ensemble average. In molecular dynamics (MD) we initialize a specific state determined by some system parameters and let it evolve in time, traversing along its physical trajectory in the phase space as determined by the equations of motion. We therefore generate a large subset of possible states which are correlated in time. Using appropriate averaging over time we can obtain estimates of the ensemble average and therefore the relevant physical quantities.
+	
+	We restrict ourselves to studying static physical properties of the system at equilibrium, although MD could also be used to study dynamical properties of a system. We carry out simulations for Argon, which is studied extensively in the literature and is modeled easily using the Lenard-Jones interaction potential. First we compute the heat capacity and compare it to theoretical results in the case of a hot and dilute gas or a cold and dense solid to verify the result. Next we compute the pressure as a function of the density at different temperatures and compare this with experimental results. Finally we compute the pair correlation function and comment on its qualitative behavior.
+	
+	%------------------------------------------------
+	
+	\section{Methods}
+	\subsection{Molecular Dynamics and the interaction potential for Argon}
+	For the simulation a box of fixed dimensions $L\times L\times L$ is considered containing $N$ particles obeying periodic boundary conditions. During the simulation we keep track of the particle positions $\mathbf{r}_i$ and particle velocities $\mathbf{v}_i$. At each time step we calculate the total force per particle  due to the interactions between particles $\mathbf{F}_{pp}$. 
+	We assume the inter-particle force to only depend on the distance between particles $\mathbf{r}_{ij} = \mathbf{r}_i - \mathbf{r}_j$. A famous potential used to derive this force is the Lennard-Jones potential and is given by
+	\begin{equation}\label{eq_lj}
+	u_{LJ}(r) = 4\epsilon \left[\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^6  \right]
+	\end{equation}
+	The total force  $\mathbf{F}_i$  on a single particle $i$ is then given by 
+	\begin{equation}\label{eq_force_sum}
+	\mathbf{F}_i = -\sum_{j\not=i}^N \left.\frac{\partial u_{LJ}}{\partial r}\right|_{r= |\mathbf{r}_{ij}|}  \frac{\mathbf{r}_{ij}}{|\mathbf{r}_{ij}|}
+	\end{equation}
+	We neglect any external forces, resulting in the following equations of motion of the $N$ particles
+	\begin{equation}\label{eq_motion}
+	\frac{\partial ^2\mathbf{r}_i}{\partial t^2} = \frac{\mathbf{F}_i}{m_i} \hspace{20pt} i\in [1, N]
+	\end{equation}
+	
+	\subsubsection*{Discretisation: Verlet Algorithm}
+	
+	The simulation is performed using time steps of size $\Delta t$, the equations of motion are then discretised using the Verlet algorithm \cite{ref_verlet}. For the position vectors we get
+	\begin{equation}\label{eq_verlet_pos}
+	\mathbf{r}_i(t+\Delta t) = \mathbf{r}_i(t) + \mathbf{v}_i(t)\Delta t + \frac{\mathbf{F}_i}{m}(\Delta t) ^2  \hspace{20pt} i\in [1, N]
+	\end{equation}
+	for the velocity at $T+\Delta t$ we get
+	\begin{equation}\label{eq_verlet_vel}
+	\mathbf{v}_i(t+\Delta t) = \mathbf{v}_i(t) + \Delta t \frac{\mathbf{F}_i(t + \Delta t) + \mathbf{F}_i(t)}{2m}  \hspace{20pt} i\in [1, N]
+	\end{equation}
+	
+	\subsubsection*{Periodic Boundary Conditions}
+	After each coordinate update, we need to check if the particles still reside within the boundaries of the box. If this is not the case we use periodic boundary conditions to translate the particles by the box length $L$ back in the box. These periodic boundary conditions can be applied separately in each dimension, so for a single dimension x we get the following update rule for the position of a single particle
+	\begin{equation}\label{eq_pbc}
+	r_x = \text{mod}_L(r_x)
+	\end{equation}
+	And the same holds for the $y$ and $z$ coordinates of the particle. These boundary conditions are also applied in the force calculation by the sum of eq.\ref{eq_force_sum}, where the closest image of the particle $j$ with respect to particle $i$ is chosen to be used, since that gives the largest contribution to the force. 
+	
+	
+	\subsubsection*{Initial conditions}
+	The argon gas at low temperatures and high density is experimentally seen to form an FCC lattice. The FCC is an orthorhombic lattice containing four particles per unit cell. If we assume the first particle to be located at position $(0,0,0)$ the others are located at $(0,\frac{1}{2},\frac{1}{2})$, $(\frac{1}{2},0,\frac{1}{2})$, $(\frac{1}{2},\frac{1}{2},0)$ if the unit cell has length 1. We use these positions as initial positions for the particles.
+	
+	For the initial velocity we use the fact that the probability of a particle having a certain kinetic energy $K$ is given by the boltzmann weight 
+	\begin{equation}\label{eq_boltzmann}
+	P(K_i) \sim e^{\frac{-|\mathbf{v}_i|^2}{2T}}
+	\end{equation}
+	From this we can see that each component of $\mathbf{v}_i$ is normally distributed with mean zero and standard deviation equal to $\sqrt{T}$, where we used the natural units described in the next section. Due to the finite amount of particles, sampling from the normal distribution with mean zero will in general not result in a zero mean velocity. To compensate for this we subtract the residual mean velocity after sampling ensuring that there is no net velocity.  
+	
+	
+	\subsubsection*{Natural Units of Computation}
+	Since the Lennard-Jones potential(eq.\ref{eq_lj}) is based on two parameters $\sigma [m]$ and $\epsilon [J]$, we define our distance in units of $\sigma$ and energy in units of $\epsilon$. For the total SI system to be written in these natural units we need a third unit, so let's take the mass $m$ equal to one. The temperature will then also be expressed as $T  = \frac{\epsilon}{\text{kB}}$. This generalizes our model to any gas obeying the LJ potential and FCC lattice structure. If the units have to be transformed back to SI units one can simply fill in the literature values of $\epsilon$, $\sigma$ and $m$ for the specific material. For argon these values are $\epsilon_a = 120 \text{kB}$, $\sigma_a = 0.34 \text{nM}$ and $m_a = 39.95 \text{g/mol}$ where kB is Boltzmann's constant. So a temperature $T = 1$ in our simulation for argon would then correspond to $T = 120 K$ in SI units.
+	
+	\subsubsection*{The (N, V, E) and (N, V, T) ensemble}
+	Since we allow for a random initial kinetic energy $K$ and then conserve the total Energy we effectively simulate the micro-canonical ensemble. It is also possible to simulate the canonical ensemble. This amounts to our system being surrounded by a large heat bath of constant temperature. In the (N, V, T) ensemble we therefore need the kinetic energy to remain constant. This can be achieved by rescaling the velocity at each time step as to remain at a constant kinetic energy corresponding to the temperature $T$
+	\begin{equation}\label{eq_vel_rescale}
+	\overline{\mathbf{v}_i} = \sqrt{\frac{3 T}{\frac{1}{N} \sum_{j=1}^N |\mathbf{v_j}|^2}} \mathbf{v}_i
+	\end{equation}
+	
+	
+	\subsection{Computation of physical quantities}
+	\subsubsection*{Computation of the heat capacity}
+	Computing the heat capacity at constant volume can be done in the canonical ensemble using the partition function, which can ultimately be related to the rms fluctuations of the total energy. However in this paper, we wish to compute the heat capacity at constant volume in the microcanonical ensemble. In the microcanonical ensemble, the heat capacity at constant volume can be computed from the rms fluctuations in the kinetic energy using a formula derived by Lebowitz\cite{ref_Lebowitz}
+	\begin{equation}
+	\frac{\braket{K^2} - \braket{K}^2}{\braket{K}^2} = \frac{2}{3N} \left( 1 - \frac{3N}{2C_V} \right),
+	\label{eq_Lebowitz}
+	\end{equation}
+	where $K$ denotes the kinetic energy, and $N$ the total number of particles. 
+	\subsubsection* {Computation of the pressure}
+	\subsubsection* {Computation of the pair correlation function}
+	The pair correlation function $g(r)$  gives information on how the density $n(r)$ varies as function of distance from a given reference particle compared tot the ideal gas. This is given by 
+	\begin{equation}\label{eq_correlation}
+	g(r) = \frac{2V}{N(N-1)}\frac{\braket{n(r)}}{4\pi r^2 \Delta r}
+	\end{equation}
+	where $\braket{n(r)}$ is numerically approximated by a histogram of the amount of particles in an interparticle separation range of $\Delta r$. 
+	
+	
+	
+	
+	\section{Results and Discussion}
+	\subsection{Specific Heat at Constant Volume}
+	Using the parameters $N=864$, $\rho=0.01$ and $T=2.0$ simulating a hot and dilute gas, we compute the heat capacity at constant volume using \eqref{eq_Lebowitz}. We find $\frac{C_V}{N} = 1.509  \pm 0.002 $ in units of $k_B$. We see that this is very close to the ideal gas value of $C_V = \frac{3}{2} N k_B$ for an ideal gas. The reason that it deviates slightly from the ideal gas case is because even though we simulate a hot and dilute gas, there is still a little bit of interaction between the argon particles, whereas the ideal gas model assumes no interaction at all.
+	
+	In a second simulation we used $N=$, $\rho=0.99$ and $T=0.1$ simulating a cold, dense solid. Computing the heat capacity using these parameters results in $\frac{C_V}{N} = ... $. This is close to the theoretical result of $C_V = 3 N k_B$ for a system of $N$ independent particles with 3 degrees of freedom in velocity and 3 degrees of freedom in a harmonic potential.
+	
+	\subsection{Correlation function}
+	For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using eq.\ref{eq_correlation}. 
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{figure_corr_gas.eps}
+\caption{Correlation function plot for a gas, with density $\rho = 0.8$ and $T = 1$}
+\label{fig:figure_corr_gas}
+\end{figure}
 
-\lstset{language=Python, 
-	basicstyle=\ttfamily\small, 
-	keywordstyle=\color{keywords},
-	commentstyle=\color{comments},
-	stringstyle=\color{red},
-	showstringspaces=false,
-	identifierstyle=\color{green},
-	procnamekeys={def,class}}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figure_corr_liquid.eps}
+	\caption{Correlation function plot for a liquid, with density $\rho = 0.96$ and $T = 1$}
+	\label{fig:figure_corr_gas}
+\end{figure}
 
-\maketitle % Insert title
-\thispagestyle{firststyle} % Only footer on first page
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figure_corr_solid.eps}
+	\caption{Correlation function plot for a liquid, with density $\rho = 1$ and $T = 0.1$}
+	\label{fig:figure_corr_gas}
+\end{figure}
 
-%----------------------------------------------------------------------------------------
-%	ABSTRACT
-%----------------------------------------------------------------------------------------
-
-\begin{abstract}
-\noindent  \lipsum[1]
-
-\end{abstract}
-
-%----------------------------------------------------------------------------------------
-%	ARTICLE CONTENTS
-%----------------------------------------------------------------------------------------
-
-\section{Introduction}
-
-\lettrine[nindent=1em,lines=2]{I}
-n this paper we intend to derive experimental macroscopic properties of a material from a microscopic description of the molecular interactions. In statistical physics many macroscopic quantities of many-particle systems can be found as an ensemble average over the possible microscopic states. Any practical macroscopic system consists of so many possible microscopic states that it is infeasible to average over all of the possible states computationally. But given a large subset of the possible states, we may assume that physical quantities averaged over the subset are close to the ensemble average. In molecular dynamics (MD) we initialize a specific state determined by some system parameters and let it evolve in time, traversing along its physical trajectory in the phase space as determined by the equations of motion. We therefore generate a large subset of possible states which are correlated in time. Using appropriate averaging over time we can obtain estimates of the ensemble average and therefore the relevant physical quantities.
-
-We restrict ourselves to studying static physical properties of the system at equilibrium, although MD could also be used to study dynamical properties of a system. We carry out simulations for Argon, which is studied extensively in the literature and is modeled easily using the Lenard-Jones interaction potential. First we compute the heat capacity and compare it to theoretical results in the case of a hot and dilute gas or a cold and dense solid to verify the result. Next we compute the pressure as a function of the density at different temperatures and compare this with experimental results. Finally we compute the pair correlation function and comment on its qualitative behavior.
-
-%------------------------------------------------
-
-\section{Methods}
-\subsection{Molecular Dynamics and the interaction potential for Argon}
-Relevant topics in order are:
-\begin{enumerate}
-\item Interaction potential
-\item Equation of motion
-\item Discretization: Verlet algorithm
-\item Boundary conditions
-\item Initial conditions
-\end{enumerate}
-
-\subsection{Computation of physical quantities}
-\begin{enumerate}
-\item Computation of the heat capacity
-\item Computation of the pressure
-\item Computation of the pair correlation function
-\end{enumerate}
-
-
-\section{Results and Discussion}
-\subsection{Results}
-\lipsum[5-9]
-\section{Conclusions}
-\lipsum[4]
-
-%\section{Appendix A - Python Code}\vspace{1em}
-%\subsection{Main program}
-%\begin{lstlisting}
-%%%python CODE HIER
-%for i in range(0,10):
-%	do cool stuff
-%	
-%\end{lstlisting}\vspace{1em}\clearpage
-%
-%
-%\section{Appendix B}
-
-
-\begin{thebibliography}{1}
-%%random voorbeeld boeken
-\bibitem{ref1}
-Baron, S. (1996).
-\newblock Medical Microbiology, 4th edition
-\newblock {\em University of Texas Medical Branch}, Ch.17
-
-\bibitem{ref2}
-Carreau, A., El Hafny-Rahbi, B., Matejuk, A., Grillon, C., Kieda, C. (2011).
-\newblock Why is the partial oxygen pressure of human tissues a crucial parameter? Small molecules and hypoxia.
-\newblock {\em J Cell Mol Med}, 15:1239-53
-\end{thebibliography}
-
+	
+	\section{Conclusions}
+	\lipsum[4]
+	
+	%\section{Appendix A - Python Code}\vspace{1em}
+	%\subsection{Main program}
+	%\begin{lstlisting}
+	%%%python CODE HIER
+	%for i in range(0,10):
+	%	do cool stuff
+	%	
+	%\end{lstlisting}\vspace{1em}\clearpage
+	%
+	%
+	%\section{Appendix B}
+	
+	
+	\begin{thebibliography}{1}
+		%%random voorbeeld boeken
+		\bibitem{ref_verlet}
+		L.   Verlet  (1967). 
+		\newblock Computer  experiments   on   classical   fluids, 
+		\newblock Thermodynamical properties of Lennard-Jones molecules
+		\newblock {\em Phys. Rev. 159 (1967), 89 - 103}.
+		
+		\bibitem{ref_Lebowitz}
+		J. L. Lebowitz, J. K. Percus, and L.Verlet, (1967).
+		\newblock Ensemble dependence of fluctuations with application
+		to machine calculations
+		\newblock {\em Phys. Rev., 253 (1967), 250 - 254}.
+	\end{thebibliography}
+	
 \end{document}
 
 
