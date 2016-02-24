@@ -31,8 +31,8 @@
 \renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
 
 \usepackage{titlesec} % Allows customization of titles
-\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
-\renewcommand\thesubsection{\thesection.\Roman{subsection}} % Roman numerals for subsections
+\renewcommand\thesection{\arabic{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\thesection.\arabic{subsection}} % Roman numerals for subsections
 \titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
 \titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
 
@@ -196,6 +196,8 @@ where $\braket{n(r)}$ is numerically approximated by a histogram of the amount o
 \section{Results and Discussion}
 In all of our simulation, we evolve in time using a time step $\Delta t = 0.004$ in units of the natural time $\tau$. Unless otherwise specified, we simulate $N = 864$ particles, which is 6 unit cells of the lattice in each dimension. Other free parameters are the density $\rho$ and temperature $T$ both in our natural units system. From the density and the number of particles, the volume of computations follows.
 
+Furthermore, we let the system evolve to equilibrium state before computing any physical quantities. In each simulation, we therefore discard a first block of time steps before performing any averaging. Typically we discard the first 1000 or 2000 time steps, depending on the chosen parameters. Using energy plots we verified that the system was indeed in equilibrium state.
+
 \subsection{Heat Capacity at Constant Volume}
 Using the parameters $N=864$, $\rho=0.01$ and $T=2.0$ simulating a hot and dilute gas, we compute the heat capacity at constant volume using \eqref{eq_Lebowitz}. We find $\frac{C_V}{N} = 1.509  \pm 0.002 $ in units of $k_B$. We see that this is very close to the ideal gas value of $C_V = \frac{3}{2} N k_B$ for an ideal gas. The reason that it deviates slightly from the ideal gas case is because even though we simulate a hot and dilute gas, there is still a little bit of interaction between the argon particles, whereas the ideal gas model assumes no interaction at all.
 
@@ -206,16 +208,16 @@ It is worth noting that in the first simulation only 40.000 time steps were take
 \subsection{Pressure as a function of density at various temperatures}
 Using $N = 864$ particles we ran simulations for various densities $\rho$ and temperatures $T$. In Figure~\ref{fig:figure_pressure} we have plotted the results of these simulations. For three different temperatures $T \in \{1.0, 1.35, 2.74 \}$ we have plotted the isotherms in the pressure density plot. We compare our results to the results obtain in Verlet (1967) \cite{ref_verlet}. The results qualitatively agree with the results in Figure~2 of Verlet. In the low pressure region of the $T=1.0$ isotherm, the simulation may describe a metastable state. This can occur because the periodic boundary conditions prevent the occurrence of inhomogeneities of a size larger than the system size $L$. This prevents the existence of a two-phase state.
 
-\begin{figure}[h!]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.7\linewidth]{fig/figure_pressure}
-\caption{}
+\includegraphics[width=0.6\linewidth]{fig/figure_pressure}
+\caption{Plot of the pressure versus the density at different temperatures. Simulations were ran with $N=864$ particles.}
 \label{fig:figure_pressure}
 \end{figure}
 
 
 \subsection{Correlation function}
-For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using \eqref{eq_correlation}. In figure \ref{fig:figure_corr} the results are shown for the gas, solid and liquid phase. The fall off at large distances is due to the finite amount of unit cells taken(6). In the solid phase, \ref{fig:figure_corr_solid} and \ref{fig:figure_corr_solid2}, the effect of temperature is clearly visible in the increase of peak height and decrease of peak width at lower temperature, since the molecules have less oscillation amplitude, giving less spread in $g$. 
+For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using \eqref{eq_correlation}. In Figure~\ref{fig:figure_corr} the results are shown for the gas, solid and liquid phase. The fall off at large distances is due to the finite amount of unit cells taken(6). In the solid phase, \ref{fig:figure_corr_solid} and \ref{fig:figure_corr_solid2}, the effect of temperature is clearly visible in the increase of peak height and decrease of peak width at lower temperature, since the molecules have less oscillation amplitude, giving less spread in $g$. 
 \begin{figure}[h]
 	\begin{subfigure}[b]{0.48\textwidth}
 	\centering
@@ -248,7 +250,7 @@ For the correlation function we use the (N, V, T) ensemble, so the velocity is s
 
 	
 \section{Conclusions}
-Using molecular dynamics simulations of Lenard-Jones interacting particles, we were able to obtain equilibrium macroscopic quantities from a microscopic description of the interaction. We effectively simulated Argon, but the method is applicable to any Lenard-Jones interacting substance, and many more macroscopic quantities may be studied if the appropriate statistical relation in known. In particular we verified the computations of the heat capacity at dilute gas and dense solid configurations. Furthermore we have shown a pressure-density relation at different temperatures. Due to the periodic boundary conditions we were not able to resolve two-phase states of argon. Finally we have computed the pair correlation function, which contains local structural information that can be verified in scattering experiments.
+Using molecular dynamics simulations of Lenard-Jones interacting particles, we were able to obtain equilibrium macroscopic quantities from a microscopic description of the interaction. We effectively simulated Argon, but the method is applicable to any Lenard-Jones interacting substance, and many more macroscopic quantities may be studied if the appropriate statistical relation in known. In particular we verified the computations of the heat capacity at dilute gas and dense solid configurations. Furthermore we have shown a pressure-density relation at different temperatures. Due to the periodic boundary conditions we were not able to resolve two-phase states of argon. Finally we have computed the pair correlation function, which contains local structural information that can be verified in scattering experiments. We obtain characteristic plots for all three phases showing that the Lenard-Jones potential models the interaction for argon in the gas, liquid and solid phase.
 
 %\section{Appendix A - Python Code}\vspace{1em}
 %\subsection{Main program}
