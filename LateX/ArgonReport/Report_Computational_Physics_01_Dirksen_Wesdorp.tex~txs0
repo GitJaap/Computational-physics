@@ -8,6 +8,7 @@
 \usepackage{braket}
 \usepackage{epsfig}
 \usepackage{epstopdf}
+\usepackage{subcaption}
 
 
 \usepackage[sc]{mathpazo} % Use the Palatino font
@@ -94,9 +95,7 @@
 %----------------------------------------------------------------------------------------
 
 \begin{abstract}
-\noindent  
-The equations of motion for 864 particles have been integrated using the Lenard-Jones pairwise interaction potential to model the particle interaction. We have simulated for several densities and at several temperatures, obtaining macroscopic quantities of argon for the relevant state. The heat capacity and constant volume was confirmed to agree with theoretical results and isotherms were computed in a pressure-density plot. Finally we have computed the pair correlation function, showing that the Lenard-Jones interaction works well to model argon in the gas, liquid and solid phase.
-
+	\noindent  \lipsum[1]
 	
 \end{abstract}
 
@@ -170,17 +169,16 @@ Since we allow for a random initial kinetic energy $K$ and then conserve the tot
 
 \subsection{Computation of physical quantities}
 \subsubsection*{Computation of the heat capacity}
-Computing the heat capacity at constant volume can be done in the canonical ensemble using the partition function, which can ultimately be related to the rms-fluctuations of the total energy. However in this paper, we wish to compute the heat capacity at constant volume in the microcanonical ensemble. In the microcanonical ensemble, the heat capacity at constant volume can be computed from the rms-fluctuations in the kinetic energy using a formula derived by Lebowitz\cite{ref_Lebowitz} 
+Computing the heat capacity at constant volume can be done in the canonical ensemble using the partition function, which can ultimately be related to the rms-fluctuations of the total energy. However in this paper, we wish to compute the heat capacity at constant volume in the microcanonical ensemble. In the microcanonical ensemble, the heat capacity at constant volume can be computed from the rms fluctuations in the kinetic energy using a formula derived by Lebowitz\cite{ref_Lebowitz}
 \begin{equation}
 \frac{\braket{K^2} - \braket{K}^2}{\braket{K}^2} = \frac{2}{3N} \left( 1 - \frac{3N}{2C_V} \right),
 \label{eq_Lebowitz}
 \end{equation}
 where $K$ denotes the kinetic energy, and $N$ the total number of particles. 
 \subsubsection* {Computation of the pressure}
-From the simulation we can also compute the pressure in the micro-canonical ensemble. To compute the pressure, we use the Virial theorem together with the notion that $n\beta = \frac{2}{3L^3} \braket{K}$ to arrive at\cite{ref_Thijssen}
+From eq. 7.36 Thijssen, using $n\beta = \frac{2K}{3L^3}$
 \begin{equation}
-P = \frac{1}{3L^3} \Braket{2K - \sum_{i<j}^N r_{ij} \frac{\partial V}{\partial r}}.
-\label{eq_pressure_virial}
+P = \frac{1}{3L^3} \Braket{2K - \sum_{i<j}^N r_{ij} \frac{\partial V}{\partial r}}
 \end{equation}
 \subsubsection* {Computation of the pair correlation function}
 The pair correlation function $g(r)$  gives information on how the density $n(r)$ varies as function of distance from a given reference particle compared tot the ideal gas. This is given by\cite{ref_Thijssen}
@@ -199,14 +197,14 @@ In all of our simulation, we evolve in time using a time step $\Delta t = 0.004$
 \subsection{Heat Capacity at Constant Volume}
 Using the parameters $N=864$, $\rho=0.01$ and $T=2.0$ simulating a hot and dilute gas, we compute the heat capacity at constant volume using \eqref{eq_Lebowitz}. We find $\frac{C_V}{N} = 1.509  \pm 0.002 $ in units of $k_B$. We see that this is very close to the ideal gas value of $C_V = \frac{3}{2} N k_B$ for an ideal gas. The reason that it deviates slightly from the ideal gas case is because even though we simulate a hot and dilute gas, there is still a little bit of interaction between the argon particles, whereas the ideal gas model assumes no interaction at all.
 
-In a second simulation we used $N=864$, $\rho=0.99$ and $T=0.1$ simulating a cold, dense solid. Computing the heat capacity using these parameters results in $\frac{C_V}{N} = 2.99  \pm  0.12 $. This is close to the theoretical result of $C_V = 3 N k_B$ for a system of $N$ independent particles with 3 degrees of freedom in velocity and 3 degrees of freedom in a harmonic potential. 
+In a second simulation we used $N=864$, $\rho=0.99$ and $T=0.1$ simulating a cold, dense solid. Computing the heat capacity using these parameters results in $\frac{C_V}{N} = 2.99  \pm  0.12 $. This is close to the theoretical result of $C_V = 3 N k_B$ for a system of $N$ independent particles with 3 degrees of freedom in velocity and 3 degrees of freedom in a harmonic potential.
 
 It is worth noting that in the first simulation only 40.000 time steps were taken, providing a formidable computational uncertainty, whereas the second simulation ran for 600.000 time steps and yields a much larger uncertainty. The reason for this is that in de dilute gas case the fluctuations in kinetic energy are negligible and computational fluctuations are averaged out fast enough. This effectively puts to left hand side of \eqref{eq_Lebowitz} to zero, yielding the result. However, in the dense solid case, the fluctiations in kinetic energy are due to physical reasons too, namely the particles being in independent harmonic potentials, constantly exchanging potential and kinetic energy as they vibrate in their lattice. It takes much more time averaging to accurately capture these fluctiations, while filtering out any computational errors. 
 
 \subsection{Pressure as a function of density at various temperatures}
-Using $N = 864$ particles we ran simulations for various densities $\rho$ and temperatures $T$. In Figure~\ref{fig:figure_pressure} we have plotted the results of these simulations. For three different temperatures $T \in \{1.0, 1.35, 2.74 \}$ we have plotted the isotherms in the pressure density plot. We compare our results to the results obtain in Verlet (1967) \cite{ref_verlet}. The results qualitatively agree with the results in Figure~2 of Verlet. In the low pressure region of the $T=1.0$ isotherm, the simulation may describe a metastable state. This can occur because the periodic boundary conditions prevent the occurrence of inhomogeneities of a size larger than the system size $L$. This prevents the existence of a two-phase state.
+Bla bla results pressure.................
 
-\begin{figure}[h!]
+\begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{fig/figure_pressure}
 \caption{}
@@ -215,40 +213,32 @@ Using $N = 864$ particles we ran simulations for various densities $\rho$ and te
 
 
 \subsection{Correlation function}
-For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using \eqref{eq_correlation}. In figure \ref{fig:figure_corr} the results are shown for the gas, solid and liquid phase. The fall off at large distances is due to the finite amount of unit cells taken(6). In the solid phase, \ref{fig:figure_corr_solid} and \ref{fig:figure_corr_solid2}, the effect of temperature is clearly visible in the increase of peak height and decrease of peak width at lower temperature, since the molecules have less oscillation amplitude, giving less spread in $g$. 
-\begin{figure}[h]
-	\begin{subfigure}[b]{0.48\textwidth}
+For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using \eqref{eq_correlation}.  
+\begin{figure}
+	\begin{subfigure}[b]{0.5\textwidth}
 	\centering
-	\includegraphics[width=0.9\linewidth]{fig/figure_corr_gas.eps}
-	\caption{$\rho = 0.8$ and $T = 1$}
+	\includegraphics[width=0.7\linewidth]{fig/figure_corr_gas.eps}
+	\caption{Correlation function plot for a gas, with density $\rho = 0.8$ and $T = 1$}
 	\label{fig:figure_corr_gas}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.48\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{fig/figure_corr_liquid.eps}
-		\caption{$\rho = 0.96$ and $T = 1$}
+		\includegraphics[width=0.7\linewidth]{fig/figure_corr_liquid.eps}
+		\caption{Correlation function plot for a liquid, with density $\rho = 0.96$ and $T = 1$}
 		\label{fig:figure_corr_liquid}
 	\end{subfigure}
 	
-	\begin{subfigure}[b]{0.48\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{fig/figure_corr_solid.eps}
-		\caption{$\rho = 1$ and $T = 0.1$}
+		\includegraphics[width=0.7\linewidth]{fig/figure_corr_solid.eps}
+		\caption{Correlation function plot for a solid, with density $\rho = 1$ and $T = 0.1$}
 		\label{fig:figure_corr_solid}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.48\textwidth}
-		\centering
-		\includegraphics[width=0.9\linewidth]{fig/figure_corr_solid2.eps}
-		\caption{$\rho = 1$ and $T = 0.001$}
-		\label{fig:figure_corr_solid2}
-	\end{subfigure}
-	\caption{Shows four evaluations of the correlation function at different densities and Temperature. The gas phase is shown in a, where we clearly see the convergence to 1 for large distances. In b the density a liquid phase is seen. In c and d one clearly sees the discrete peaks corresponding to the FCC structure seen in a solid.}
-	\label{fig:figure_corr}
 \end{figure}
 
 	
 \section{Conclusions}
-Using molecular dynamics simulations of Lenard-Jones interacting particles, we were able to obtain equilibrium macroscopic quantities from a microscopic description of the interaction. We effectively simulated Argon, but the method is applicable to any Lenard-Jones interacting substance, and many more macroscopic quantities may be studied if the appropriate statistical relation in known. In particular we verified the computations of the heat capacity at dilute gas and dense solid configurations. Furthermore we have shown a pressure-density relation at different temperatures. Due to the periodic boundary conditions we were not able to resolve two-phase states of argon. Finally we have computed the pair correlation function, which contains local structural information that can be verified in scattering experiments.
+\lipsum[4]
 
 %\section{Appendix A - Python Code}\vspace{1em}
 %\subsection{Main program}
