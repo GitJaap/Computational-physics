@@ -1,18 +1,17 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.10.14)  23 FEB 2016 17:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.10.13)  24 FEB 2016 14:01
 entering extended mode
 **Report_Computational_Physics_01_Dirksen_Wesdorp.tex
 
-("C:\Users\Bas\Dropbox\TU\Applied Physics\Computational Physics\PythonCodes\Git
-HubReposCompPhys\LateX\ArgonReport\Report_Computational_Physics_01_Dirksen_Wesd
-orp.tex"
+("C:\TU Delft\Computational physics\Code\LateX\ArgonReport\Report_Computational
+_Physics_01_Dirksen_Wesdorp.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
 croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+lician, german, german-x-2013-05-26, greek, gujarati, hindi, hungarian, iceland
 ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
  lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
-german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
@@ -130,7 +129,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen112
 \Gin@req@width=\dimen113
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\listings.sty
 \lst@mode=\count100
 \lst@gtempboxa=\box28
 \lst@token=\toks20
@@ -144,16 +143,16 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \lst@lineno=\count105
 \lst@maxwidth=\dimen117
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
-File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
 \c@lstnumber=\count106
 \lst@skipnumbers=\count107
 \lst@framebox=\box29
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg"
-File: listings.cfg 2007/02/22 1.4 listings configuration
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\listings.cfg
+File: listings.cfg 2014/09/06 1.5e listings configuration
 ))
-Package: listings 2007/02/22 1.4 (Carsten Heinz)
+Package: listings 2014/09/06 1.5e (Carsten Heinz)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
@@ -163,11 +162,11 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty"
-Package: lipsum 2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\lipsum\lipsum.sty
+Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count108
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\braket\braket.sty")
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\braket\braket.sty)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\epsfig.sty"
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 \epsfxsize=\dimen118
@@ -232,25 +231,27 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.sty"
-Package: microtype 2013/03/13 v2.5 Micro-typographical refinements (RS)
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\microtype.sty
+Package: microtype 2013/05/23 v2.5a Micro-typographical refinements (RS)
 \MT@toks=\toks21
 \MT@count=\count109
-LaTeX Info: Redefining \textls on input line 771.
+LaTeX Info: Redefining \textls on input line 766.
 \MT@outer@kern=\dimen120
-LaTeX Info: Redefining \textmicrotypecontext on input line 1290.
+LaTeX Info: Redefining \textmicrotypecontext on input line 1285.
 \MT@listname@count=\count110
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype-pdftex.def"
-File: microtype-pdftex.def 2013/03/13 v2.5 Definitions specific to pdftex (RS)
-LaTeX Info: Redefining \lsstyle on input line 889.
-LaTeX Info: Redefining \lslig on input line 889.
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\microtype-pdftex.
+def
+File: microtype-pdftex.def 2013/05/23 v2.5a Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 915.
+LaTeX Info: Redefining \lslig on input line 915.
 \MT@outer@space=\skip46
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\microtype.cfg"
-File: microtype.cfg 2013/03/13 v2.5 microtype main configuration file (RS)
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\microtype.cfg
+File: microtype.cfg 2013/05/23 v2.5a microtype main configuration file (RS)
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
 Package: geometry 2010/09/12 v5.6 Page Geometry
@@ -324,10 +325,10 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \colbreak@box=\box55
 \multicol@sort@counter=\count122
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption.sty
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption3.sty
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
 \captionmargin=\dimen137
@@ -409,9 +410,9 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count128
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty
 \Urlmuskip=\muskip11
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5041.
 \XeTeXLinkMargin=\dimen145
@@ -446,36 +447,42 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip49
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\lettrine\lettrine.sty"
-File: lettrine.sty 2013/03/14 v1.64 (Daniel Flipo)
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\lettrine\lettrine.sty
+File: lettrine.sty 2015/08/31 v1.9 (Daniel Flipo)
 \c@DefaultLines=\count135
+\c@DefaultDepth=\count136
 \DefaultFindent=\dimen148
 \DefaultNindent=\dimen149
 \DefaultSlope=\dimen150
+\DiscardVskip=\dimen151
 \L@lbox=\box58
 \L@tbox=\box59
-\c@L@lines=\count136
-\L@Pindent=\dimen151
-\L@Findent=\dimen152
-\L@Nindent=\dimen153
-\L@lraise=\dimen154
-\L@first=\dimen155
-\L@next=\dimen156
-\L@slope=\dimen157
-\L@height=\dimen158
-\LettrineWidth=\dimen159
+\c@L@lines=\count137
+\c@L@depth=\count138
+\L@Pindent=\dimen152
+\L@Findent=\dimen153
+\L@Nindent=\dimen154
+\L@lraise=\dimen155
+\L@first=\dimen156
+\L@next=\dimen157
+\L@slope=\dimen158
+\L@height=\dimen159
+\L@novskip=\dimen160
+\LettrineWidth=\dimen161
+\LettrineHeight=\dimen162
+\LettrineDepth=\dimen163
 
 Loading lettrine.cfg
-("C:\Program Files\MiKTeX 2.9\tex\latex\lettrine\lettrine.cfg"))
-("C:\Program Files\MiKTeX 2.9\tex\latex\paralist\paralist.sty"
-Package: paralist 2002/03/18 v2.3b Extended list environments (BS)
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\lettrine\lettrine.cfg))
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\paralist\paralist.sty
+Package: paralist 2013/06/09 v2.4 Extended list environments
 \pltopsep=\skip50
 \plpartopsep=\skip51
 \plitemsep=\skip52
 \plparsep=\skip53
 \pl@lab=\toks25
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\abstract\abstract.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\abstract\abstract.sty
 Package: abstract 2009/06/08 v1.2a configurable abstracts
 \abstitleskip=\skip54
 \absleftindent=\skip55
@@ -483,22 +490,22 @@ Package: abstract 2009/06/08 v1.2a configurable abstracts
 \absparindent=\skip57
 \absparsep=\skip58
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\titlesec\titlesec.sty
 Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
 \ttl@box=\box60
 \beforetitleunit=\skip59
 \aftertitleunit=\skip60
-\ttl@plus=\dimen160
-\ttl@minus=\dimen161
+\ttl@plus=\dimen164
+\ttl@minus=\dimen165
 \ttl@toksa=\toks26
-\titlewidth=\dimen162
-\titlewidthlast=\dimen163
-\titlewidthfirst=\dimen164
+\titlewidth=\dimen166
+\titlewidthlast=\dimen167
+\titlewidthfirst=\dimen168
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\block.tss"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\titlesec\block.tss
 File: block.tss 2011/12/15
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyhdr\fancyhdr.sty
 \fancy@headwidth=\skip61
 \f@ncyO@elh=\skip62
 \f@ncyO@erh=\skip63
@@ -509,14 +516,13 @@ File: block.tss 2011/12/15
 \f@ncyO@olf=\skip68
 \f@ncyO@orf=\skip69
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\caption\subcaption.sty"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\subcaption.sty
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
-\c@subfigure=\count137
-\c@subtable=\count138
+\c@subfigure=\count139
+\c@subtable=\count140
 )
-("C:\Users\Bas\Dropbox\TU\Applied Physics\Computational Physics\PythonCodes\Git
-HubReposCompPhys\LateX\ArgonReport\Report_Computational_Physics_01_Dirksen_Wesd
-orp.aux")
+("C:\TU Delft\Computational physics\Code\LateX\ArgonReport\Report_Computational
+_Physics_01_Dirksen_Wesdorp.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
 LaTeX Font Info:    ... okay on input line 73.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
@@ -532,24 +538,25 @@ LaTeX Font Info:    ... okay on input line 73.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
 LaTeX Font Info:    ... okay on input line 73.
 LaTeX Font Info:    Try loading font information for T1+pplx on input line 73.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1pplx.fd"
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1pplx.fd"
 File: t1pplx.fd 2004/09/06 font definitions for T1/pplx.
 )
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count139
-\scratchdimen=\dimen165
+\scratchcounter=\count141
+\scratchdimen=\dimen169
 \scratchbox=\box61
-\nofMPsegments=\count140
-\nofMParguments=\count141
+\nofMPsegments=\count142
+\nofMParguments=\count143
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count142
-\MPscratchDim=\dimen166
-\MPnumerator=\count143
-\makeMPintoPDFobject=\count144
+\MPscratchCnt=\count144
+\MPscratchDim=\dimen170
+\MPnumerator=\count145
+\makeMPintoPDFobject=\count146
 \everyMPtoPDFconversion=\toks28
 )
-\c@lstlisting=\count145
+\c@lstlisting=\count147
 LaTeX Info: Redefining \microtypecontext on input line 73.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -560,7 +567,7 @@ Package microtype Info: Using default expansion set `basictext'.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-ppl.cfg"
+ (C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\mt-ppl.cfg
 File: mt-ppl.cfg 2005/11/16 v1.6 microtype config. file: Palatino (RS)
 )
 *geometry* driver: auto-detecting
@@ -610,23 +617,22 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count146
+\c@section@level=\count148
 )
 LaTeX Info: Redefining \ref on input line 73.
 LaTeX Info: Redefining \pageref on input line 73.
 LaTeX Info: Redefining \nameref on input line 73.
 
-("C:\Users\Bas\Dropbox\TU\Applied Physics\Computational Physics\PythonCodes\Git
-HubReposCompPhys\LateX\ArgonReport\Report_Computational_Physics_01_Dirksen_Wesd
-orp.out")
-("C:\Users\Bas\Dropbox\TU\Applied Physics\Computational Physics\PythonCodes\Git
-HubReposCompPhys\LateX\ArgonReport\Report_Computational_Physics_01_Dirksen_Wesd
-orp.out")
+("C:\TU Delft\Computational physics\Code\LateX\ArgonReport\Report_Computational
+_Physics_01_Dirksen_Wesdorp.out")
+("C:\TU Delft\Computational physics\Code\LateX\ArgonReport\Report_Computational
+_Physics_01_Dirksen_Wesdorp.out")
 \@outlinefile=\write3
 Package color Info: Redefining color red on input line 77.
 Package color Info: Redefining color green on input line 78.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
-File: lstlang1.sty 2004/09/05 1.3 listings language file
+
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <18> not available
 (Font)              Font shape `T1/pplx/b/n' tried instead on input line 90.
@@ -657,7 +663,7 @@ File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
 (Font)              scaled to size 12.50409pt on input line 90.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-msa.cfg"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
@@ -667,7 +673,7 @@ LaTeX Font Info:    Font shape `U/msa/m/n' will be
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 12.50409pt on input line 90.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\microtype\mt-msb.cfg"
+(C:\Users\Jaap\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
@@ -709,7 +715,7 @@ Underfull \vbox (badness 1502) has occurred while \output is active []
 
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+{C:/Users/Jaap/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 22.83502pt.
@@ -718,10 +724,10 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [2] [3] [4]
 Package epstopdf Info: Source file: <fig/figure_pressure.eps>
-(epstopdf)                    date: 2016-02-22 12:07:01
+(epstopdf)                    date: 2016-02-24 12:49:05
 (epstopdf)                    size: 29218 bytes
 (epstopdf)             Output file: <fig/figure_pressure-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-02-22 12:09:22
+(epstopdf)                    date: 2016-02-24 12:49:05
 (epstopdf)                    size: 15003 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/figure_pressure-eps-con
 verted-to.pdf fig/figure_pressure.eps>
@@ -738,113 +744,130 @@ Package pdftex.def Info: fig/figure_pressure-eps-converted-to.pdf used on input
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <9> not available
 (Font)              Font shape `T1/pplx/b/n' tried instead on input line 209.
 Package epstopdf Info: Source file: <fig/figure_corr_gas.eps>
-(epstopdf)                    date: 2016-02-21 16:55:31
-(epstopdf)                    size: 29305 bytes
+(epstopdf)                    date: 2016-02-24 13:51:37
+(epstopdf)                    size: 29537 bytes
 (epstopdf)             Output file: <fig/figure_corr_gas-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-02-21 16:55:31
-(epstopdf)                    size: 17741 bytes
+(epstopdf)                    date: 2016-02-24 13:52:07
+(epstopdf)                    size: 17775 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/figure_corr_gas-eps-con
 verted-to.pdf fig/figure_corr_gas.eps>
-(epstopdf)             \includegraphics on input line 218.
+(epstopdf)             \includegraphics on input line 219.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/figure_corr_gas-eps-converted-to.pdf, id=91, 867.24pt x 504.88625pt>
+<fig/figure_corr_gas-eps-converted-to.pdf, id=94, 578.16pt x 432.61626pt>
 File: fig/figure_corr_gas-eps-converted-to.pdf Graphic file (type pdf)
 
 <use fig/figure_corr_gas-eps-converted-to.pdf>
 Package pdftex.def Info: fig/figure_corr_gas-eps-converted-to.pdf used on input
- line 218.
-(pdftex.def)             Requested size: 301.00192pt x 175.23367pt.
+ line 219.
+(pdftex.def)             Requested size: 185.75906pt x 138.99452pt.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 219.
+(Font)              scaled to size 5.21004pt on input line 220.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 219.
+(Font)              scaled to size 5.21004pt on input line 220.
 Package epstopdf Info: Source file: <fig/figure_corr_liquid.eps>
-(epstopdf)                    date: 2016-02-21 16:55:31
-(epstopdf)                    size: 29148 bytes
+(epstopdf)                    date: 2016-02-24 13:51:52
+(epstopdf)                    size: 31054 bytes
 (epstopdf)             Output file: <fig/figure_corr_liquid-eps-converted-to.pd
 f>
-(epstopdf)                    date: 2016-02-21 16:55:31
-(epstopdf)                    size: 17768 bytes
+(epstopdf)                    date: 2016-02-24 13:52:08
+(epstopdf)                    size: 18170 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/figure_corr_liquid-eps-
 converted-to.pdf fig/figure_corr_liquid.eps>
 (epstopdf)             \includegraphics on input line 225.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/figure_corr_liquid-eps-converted-to.pdf, id=92, 867.24pt x 504.88625pt>
+<fig/figure_corr_liquid-eps-converted-to.pdf, id=95, 578.16pt x 432.61626pt>
 File: fig/figure_corr_liquid-eps-converted-to.pdf Graphic file (type pdf)
 
 <use fig/figure_corr_liquid-eps-converted-to.pdf>
 Package pdftex.def Info: fig/figure_corr_liquid-eps-converted-to.pdf used on in
 put line 225.
-(pdftex.def)             Requested size: 301.00192pt x 175.23367pt.
+(pdftex.def)             Requested size: 185.75906pt x 138.99452pt.
 Package epstopdf Info: Source file: <fig/figure_corr_solid.eps>
-(epstopdf)                    date: 2016-02-21 16:55:31
-(epstopdf)                    size: 31147 bytes
+(epstopdf)                    date: 2016-02-24 13:52:05
+(epstopdf)                    size: 31151 bytes
 (epstopdf)             Output file: <fig/figure_corr_solid-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2016-02-21 16:55:31
-(epstopdf)                    size: 19103 bytes
+(epstopdf)                    date: 2016-02-24 13:52:08
+(epstopdf)                    size: 18986 bytes
 (epstopdf)             Command: <epstopdf --outfile=fig/figure_corr_solid-eps-c
 onverted-to.pdf fig/figure_corr_solid.eps>
 (epstopdf)             \includegraphics on input line 232.
 Package epstopdf Info: Output file is already uptodate.
 
-<fig/figure_corr_solid-eps-converted-to.pdf, id=93, 867.24pt x 504.88625pt>
+<fig/figure_corr_solid-eps-converted-to.pdf, id=96, 578.16pt x 432.61626pt>
 File: fig/figure_corr_solid-eps-converted-to.pdf Graphic file (type pdf)
 
 <use fig/figure_corr_solid-eps-converted-to.pdf>
 Package pdftex.def Info: fig/figure_corr_solid-eps-converted-to.pdf used on inp
 ut line 232.
-(pdftex.def)             Requested size: 301.00192pt x 175.23367pt.
+(pdftex.def)             Requested size: 185.75906pt x 138.99452pt.
+Package epstopdf Info: Source file: <fig/figure_corr_solid2.eps>
+(epstopdf)                    date: 2016-02-24 13:51:24
+(epstopdf)                    size: 28294 bytes
+(epstopdf)             Output file: <fig/figure_corr_solid2-eps-converted-to.pd
+f>
+(epstopdf)                    date: 2016-02-24 13:52:09
+(epstopdf)                    size: 16886 bytes
+(epstopdf)             Command: <epstopdf --outfile=fig/figure_corr_solid2-eps-
+converted-to.pdf fig/figure_corr_solid2.eps>
+(epstopdf)             \includegraphics on input line 238.
+Package epstopdf Info: Output file is already uptodate.
 
-Underfull \vbox (badness 1584) has occurred while \output is active []
+<fig/figure_corr_solid2-eps-converted-to.pdf, id=97, 578.16pt x 432.61626pt>
+File: fig/figure_corr_solid2-eps-converted-to.pdf Graphic file (type pdf)
 
- [5 <C:/Users/Bas/Dropbox/TU/Applied Physics/Computational Physics/PythonCodes/
-GitHubReposCompPhys/LateX/ArgonReport/fig/figure_pressure-eps-converted-to.pdf>
-] [6 <C:/Users/Bas/Dropbox/TU/Applied Physics/Computational Physics/PythonCodes
-/GitHubReposCompPhys/LateX/ArgonReport/fig/figure_corr_gas-eps-converted-to.pdf
-> <C:/Users/Bas/Dropbox/TU/Applied Physics/Computational Physics/PythonCodes/Gi
-tHubReposCompPhys/LateX/ArgonReport/fig/figure_corr_liquid-eps-converted-to.pdf
-> <C:/Users/Bas/Dropbox/TU/Applied Physics/Computational Physics/PythonCodes/Gi
-tHubReposCompPhys/LateX/ArgonReport/fig/figure_corr_solid-eps-converted-to.pdf>
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 274.
- [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 274.
+<use fig/figure_corr_solid2-eps-converted-to.pdf>
+Package pdftex.def Info: fig/figure_corr_solid2-eps-converted-to.pdf used on in
+put line 238.
+(pdftex.def)             Requested size: 185.75906pt x 138.99452pt.
 
-("C:\Users\Bas\Dropbox\TU\Applied Physics\Computational Physics\PythonCodes\Git
-HubReposCompPhys\LateX\ArgonReport\Report_Computational_Physics_01_Dirksen_Wesd
-orp.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 274.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 274.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5 <C:/TU Delft/Computational physics/Code/LateX/ArgonReport/fig/figure_pressur
+e-eps-converted-to.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 283.
+ [6 <C:/TU Delft/Computational physics/Code/LateX/ArgonReport/fig/figure_corr_g
+as-eps-converted-to.pdf> <C:/TU Delft/Computational physics/Code/LateX/ArgonRep
+ort/fig/figure_corr_liquid-eps-converted-to.pdf> <C:/TU Delft/Computational phy
+sics/Code/LateX/ArgonReport/fig/figure_corr_solid-eps-converted-to.pdf> <C:/TU 
+Delft/Computational physics/Code/LateX/ArgonReport/fig/figure_corr_solid2-eps-c
+onverted-to.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 283.
+
+("C:\TU Delft\Computational physics\Code\LateX\ArgonReport\Report_Computational
+_Physics_01_Dirksen_Wesdorp.aux")
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `Report_Computational_Physics_01_Dirksen_Wesd
 orp.out' has not changed.
 (rerunfilecheck)             Checksum: 50B7D1D8AF56CEC3831E6C9349A8A328;647.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 274.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 283.
  ) 
 Here is how much of TeX's memory you used:
- 11715 strings out of 493921
- 178644 string characters out of 3147287
- 398940 words of memory out of 3000000
- 14481 multiletter control sequences out of 15000+200000
+ 11776 strings out of 493921
+ 179823 string characters out of 3147284
+ 409010 words of memory out of 3000000
+ 14544 multiletter control sequences out of 15000+200000
  81011 words of font info for 295 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 42i,13n,43p,1199b,457s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,13n,43p,1199b,551s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/m
-athpazo/fplmr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/mathpazo/fplm
-ri.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/fpl/fplrc8a.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/urw/palatino/uplri8a.pfb>
-Output written on Report_Computational_Physics_01_Dirksen_Wesdorp.pdf (7 pages,
- 212049 bytes).
+public/amsfonts/cm/cmsy10.pfb><C:/Users/Jaap/AppData/Roaming/MiKTeX/2.9/fonts/t
+ype1/public/mathpazo/fplmr.pfb><C:/Users/Jaap/AppData/Roaming/MiKTeX/2.9/fonts/
+type1/public/mathpazo/fplmri.pfb><C:/Users/Jaap/AppData/Roaming/MiKTeX/2.9/font
+s/type1/public/fpl/fplrc8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/pal
+atino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on Report_Computational_Physics_01_Dirksen_Wesdorp.pdf (6 pages,
+ 227295 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 35 named destinations out of 1000 (max. 500000)
- 61533 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 298 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
+ 61538 words of extra memory for PDF output out of 61914 (max. 10000000)
 

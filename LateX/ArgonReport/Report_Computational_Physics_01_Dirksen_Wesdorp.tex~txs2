@@ -212,8 +212,8 @@ Bla bla results pressure.................
 
 
 \subsection{Correlation function}
-For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using \eqref{eq_correlation}. In figure \ref{fig:figure_corr} the results are shown for the gas, solid and liquid phase. The fall off at large distances is due to the finite amount of unit cells taken(6). In the solid phase, \ref{fig:figure_corr_solid} and \ref{fig:figure_corr_solid2}, the effect of temperature is clearly visible in the increase of peak height and decrease of peak width at lower temperature, since the molecules have less oscillation amplitude, giving less spread in $g$. 
-\begin{figure}[h]
+For the correlation function we use the (N, V, T) ensemble, so the velocity is scaled at each timestep as to keep a constant kinetic energy. The correlation function is then calculated using \eqref{eq_correlation}.  
+\begin{figure}
 	\begin{subfigure}[b]{0.48\textwidth}
 	\centering
 	\includegraphics[width=0.9\linewidth]{fig/figure_corr_gas.eps}
@@ -229,18 +229,16 @@ For the correlation function we use the (N, V, T) ensemble, so the velocity is s
 	
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
-		\includegraphics[width=0.9\linewidth]{fig/figure_corr_solid.eps}
+		\includegraphics[width=0.9\linewidth]{fig/figure_1.eps}
 		\caption{$\rho = 1$ and $T = 0.1$}
 		\label{fig:figure_corr_solid}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics[width=0.9\linewidth]{fig/figure_corr_solid2.eps}
-		\caption{$\rho = 1$ and $T = 0.001$}
+		\caption{$\rho = 1$ and $T = 0.1$}
 		\label{fig:figure_corr_solid2}
 	\end{subfigure}
-	\caption{Shows four evaluations of the correlation function at different densities and Temperature. The gas phase is shown in a, where we clearly see the convergence to 1 for large distances. In b the density a liquid phase is seen. In c and d one clearly sees the discrete peaks corresponding to the FCC structure seen in a solid.}
-	\label{fig:figure_corr}
 \end{figure}
 
 	
