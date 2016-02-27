@@ -189,6 +189,18 @@ g(r) = \frac{2V}{N(N-1)}\frac{\braket{n(r)}}{4\pi r^2 \Delta r}
 \end{equation}
 where $\braket{n(r)}$ is numerically approximated by a histogram of the amount of particles in an inter-particle separation range of $\Delta r$. 
 
+\subsubsection*{Computation of the mean squared displacement}
+The mean squared displacement is a measure of the movement of the particles through the volume and can be related to the self-diffusion constant. The mean squared displacement (MSD) is defined at time $t$ by
+\begin{equation}
+\mathrm{MSD}(t) = \frac{1}{N} \sum_{i=1}^{N} \Big[\mathbf{r}_i(t) - \mathbf{r}_i(0)\Big]^2.
+\end{equation}
+Computation of this quantity is efficiently done by keeping track of the change in position for each particle every time step and adding these up every time step to find the total displacement of each particle from its initial position. This method also ensures that we can track particle displacement larger than $L$, which ensured correct computation even though we use periodic boundary conditions. Then at each time step, using the displacement, we can easily compute the $\mathrm{MSD}(t)$.
+In a three-dimensional problem, the diffusion constant can be computed using the MSD function as\cite{ref_Al-Matar}
+\begin{equation}
+D = \lim\limits_{t\rightarrow\infty} \frac{1}{6t} \braket{\mathrm{MSD}(t)},
+\end{equation}
+which can be interpreted as the slope of the graph of $\mathrm{MSD}(t)$ versus $t$ at large enough time $t$.
+
 %-------------------------------------------------------------------------
 % % RESULTS
 %-------------------------------------------------------------------------
@@ -244,9 +256,39 @@ For the correlation function we use the (N, V, T) ensemble, so the velocity is s
 		\caption{$\rho = 1$ and $T = 0.001$}
 		\label{fig:figure_corr_solid2}
 	\end{subfigure}
-	\caption{Shows four evaluations of the correlation function at different densities and Temperature. The gas phase is shown in a, where we clearly see the convergence to 1 for large distances. In b the density a liquid phase is seen. In c and d one clearly sees the discrete peaks corresponding to the FCC structure seen in a solid.}
+	\caption{Shows four evaluations of the correlation function at different densities and Temperature. The gas phase is shown in a), where we clearly see the convergence to 1 for large distances. In b) the density of a liquid phase is seen. In c) and d) one clearly sees the discrete peaks corresponding to the FCC structure seen in a solid.}
 	\label{fig:figure_corr}
 \end{figure}
+
+\subsection{Mean Squared Displacement and Diffusion Constant}
+Finally we have computed the $\mathrm{MSD}(t)$ at different densities and temperatures. We have plotted the $\mathrm{MSD}(t)$ as a function of time in Figure~\ref{fig:figure_msd} for a gas phase, a liquid phase and a solid phase. In Figure~\ref{fig:figure_msd_gas} we have a low density gas and we clearly see the initial ballistic transport regime where $\mathrm{MSD(t)} \sim t^2$. After the characteristic collision time, we see diffusive behavior where $\mathrm{MSD(t)} \sim t$. In Figure~\ref{fig:figure_msd_liquid} we see the liquid phase, where the initial ballistic transport is absent. In Figure~\ref{fig:figure_msd_solid} we see a solid phase and clearly there is no increment of the MSD over time since the particles are fixed in a lattice structure. We actually see oscillatory behavior of the MSD. The reason that the mean is nonzero is because of the initial displacement to the equilibrium.
+
+\begin{figure}[h]
+	\begin{subfigure}[b]{0.48\textwidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig/figure_msd_gas.eps}
+	\caption{$\rho = 0.2$ and $T = 1$}
+	\label{fig:figure_msd_gas}
+	\end{subfigure}
+	~
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig/figure_msd_liquid.eps}
+		\caption{$\rho = 0.75$ and $T = 1$}
+		\label{fig:figure_msd_liquid}
+	\end{subfigure}
+	\\
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig/figure_msd_solid.eps}
+		\caption{$\rho = 1$ and $T = 0.1$}
+		\label{fig:figure_msd_solid}
+	\end{subfigure}
+	\caption{The mean squared displacement $\mathrm{MSD}(t)$ as a function of time with a linear fit of the last part where linear behavior is seen. The slope of the fit is proportional to the diffusion constant of the phase. Figure a) shows a gaseous condition, b) a liquid condition and c) a solid condition.}
+	\label{fig:figure_msd}
+\end{figure}
+
+
 
 	
 \section{Conclusions}
@@ -283,6 +325,11 @@ Using molecular dynamics simulations of Lenard-Jones interacting particles, we w
 	J. M. Thijssen (2007).
 	\newblock Computational Physics, Ch. 7-8
 	\newblock {\em Cambridge University Press}
+	
+	\bibitem{ref_Al-Matar}
+	A. Al-Matar (2012).
+	\newblock Self Diffusion Coefficient of Lennard-Jones fluid using temperature dependent interaction parameters at different pressures.
+	\newblock {\em The Sixth Jordan International Chemical Engineering Conference, JIChE06}
 \end{thebibliography}
 	
 \end{document}
