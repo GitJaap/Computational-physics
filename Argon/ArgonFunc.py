@@ -128,10 +128,15 @@ def evolveTimeConserveE(pos,vel,numtime,N,L,dt):
     V = np.zeros(numtime)
     rV = np.zeros(numtime)
     F = forceTotal(pos,N,L)[0]
+    dpos = np.zeros_like(pos)
+    msd = np.zeros(numtime)
     for i in range(numtime):
         vel += 0.5*dt*F
         pos += dt*vel
         pos %= L
+        
+        dpos += dt*vel 
+        msd[i] = np.mean(dpos*dpos)
 
         F,V[i],rV[i] = forceTotal(pos,N,L)
         vel += 0.5*dt*F   
@@ -139,7 +144,7 @@ def evolveTimeConserveE(pos,vel,numtime,N,L,dt):
         K[i] = 0.5*np.sum(vel[0,:]**2+vel[1,:]**2+vel[2,:]**2)
         
         
-    return pos,vel,K,V,rV
+    return pos,vel,K,V,rV,msd
     
 def evolveTimeFixedT(pos,vel,numtime,N,L,dt,Tfixed):
     #Initialize potential energy vectors
