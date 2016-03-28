@@ -4,6 +4,5 @@ Argon Gas/.idea/
 *.aux
 *.out
 ExtraPaperHeatCapacity.pdf
-Quantum Variational MonteCarlo Simulation/Code/.ipynb_checkpoints/
+.ipynb_checkpoints/
 LateX/HydrogenReport/Report_Computational_Physics_02_Dirkse_Wesdorp.pdf
-Quantum Variational MonteCarlo Simulation/.ipynb_checkpoints/
