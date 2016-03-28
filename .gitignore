@@ -1,6 +1,9 @@
 Argon Gas/.idea/
-LateX/ArgonReport/Report_Computational_Physics_01_Dirksen_Wesdorp.log
-LateX/ArgonReport/Report_Computational_Physics_01_Dirksen_Wesdorp.synctex.gz
-LateX/ArgonReport/Report_Computational_Physics_01_Dirksen_Wesdorp.aux
+*.log
+*.synctex.gz
+*.aux
 *.out
 ExtraPaperHeatCapacity.pdf
+Quantum Variational MonteCarlo Simulation/Code/.ipynb_checkpoints/
+LateX/HydrogenReport/Report_Computational_Physics_02_Dirkse_Wesdorp.pdf
+Quantum Variational MonteCarlo Simulation/.ipynb_checkpoints/

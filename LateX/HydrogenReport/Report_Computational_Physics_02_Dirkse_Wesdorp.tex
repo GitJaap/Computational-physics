@@ -1,0 +1,244 @@
+\documentclass[twoside]{article} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[pdftex]{graphicx}
+\usepackage[procnames]{listings}
+\usepackage{color}
+\usepackage{lipsum} % Package to generate dummy text throughout this template
+\usepackage{braket}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+\newcommand{\unit}[1]{\ensuremath{\; \mathrm{#1}}}
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\arabic{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\thesection.\arabic{subsection}} % Roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhf{}
+\fancyhead[C]{Molecular Dynamics Simulation of a Lenard-Jones Interacting Molecule for Obtaining Macroscopic Static Physical Properties $\bullet$ February 2016} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+\fancyfoot[CO,CE]{Jaap Wesdorp \& Bas Dirkse}
+\fancypagestyle{firststyle}
+{	
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyfoot[RO,LE]{\thepage}
+	\fancyfoot[CO,CE]{Jaap Wesdorp \& Bas Dirkse}
+}
+
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{\vspace{-15mm}\fontsize{18pt}{10pt}\selectfont\textbf{Computation of the Ground State Energy and Wave Function of the Hydrogen Molecule using the Variational Monte Carlo Method}} % Article title
+
+\author{
+	\large
+	\textsc{Jaap Wesdorp}$^\dagger$, $\hspace{10pt}$ \textsc{Bas Dirkse}$^\dagger$ \\ % Your name
+	\normalsize $^\dagger$Delft University of Technology \\ % Your institution
+	\normalsize \href{mailto:j.j.wesdorp@student.tudelft.nl}{j.j.wesdorp@student.tudelft.nl} \\
+	\normalsize \href{mailto:b.dirkse@student.tudelft.nl}{b.dirkse@student.tudelft.nl} 
+}
+\date{\today\vspace{-8mm}}
+
+%----------------------------------------------------------------------------------------
+
+\newcommand{\bfr}{\ensuremath{\mathbf{r}}}
+
+
+\begin{document}
+
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,113}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+
+\lstset{language=Python, 
+	basicstyle=\ttfamily\small, 
+	keywordstyle=\color{keywords},
+	commentstyle=\color{comments},
+	stringstyle=\color{red},
+	showstringspaces=false,
+	identifierstyle=\color{green},
+	procnamekeys={def,class}}
+
+\maketitle % Insert title
+\thispagestyle{firststyle} % Only footer on first page
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+\noindent  
+Some abstact
+
+	
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+\lipsum[1]
+
+%------------------------------------------------
+
+\section{Methods}
+In the variational method for finding the ground state of a system, we start with a trial wave function of a specific form, which depends on (several) variational parameters. We then compute the expectation value of the energy, given the Hamiltonian of the system and optimize the parameters to find the ground state within our variational space. The computation of the expectation value of the energy is done using the Metropolis Monte Carlo method, thereby avoiding the need to normalize the trial wave function. The optimization of the variational parameters is done by a damped steepest descent method, where the derivative of the energy with respect to each variational parameter is computed using some statistical averaging algorithm, thereby avoiding the use of finite differences of stochastic variables. 
+
+\subsubsection*{Natural Units of Computation}
+In our computation we naturally use atomic units. For the distance, we use the unit of Bohr radius
+\begin{equation}
+a_0 = \frac{4\pi \epsilon_0 \hbar^2}{me^2} \approx 0.529 \times 10^{-10} \unit{m},
+\end{equation}
+and for energy we use twice the ionization energy of a Hydrogen atom
+\begin{equation}
+E_0 = \frac{m}{\hbar^2} \left(\frac{e^2}{4\pi \epsilon_0}\right)^2 \approx 27.2 \unit{eV} 
+\end{equation}
+
+\subsubsection*{The Hamiltonian of the Hydrogen Molecule}
+In this paper we approximate the Hydrogen molecule system as two stationary protons separated by a distance $s$, supplemented with two electrons. We choose our coordinate system such that both protons are symmetrically located around the origin and positioned on the x-axis, i.e. the protons are at $[\pm s/2,0,0]^T$. The Hamiltonian of this system includes the kinetic energy of the electrons, the potential energy of each electron due to the two protons and an electron-electron interaction term. Let the positions of the electrons be given by $\bfr_1$ and $\bfr_2$ respectively. In our natural units, the Hamiltonian is then given by
+\begin{equation}
+H = -\frac{1}{2} (\nabla_1^2 + \nabla_2^2) - \left[ \frac{1}{r_{1L}} + \frac{1}{r_{1R}} + \frac{1}{r_{2L}} + \frac{1}{r_{2R}}  \right] + \frac{1}{r_{12}},
+\end{equation}
+where
+\begin{equation}
+\begin{split}
+&\bfr_{iL} = \bfr_i + \frac{s}{2} \mathbf{\hat{x}}; \quad\quad \bfr_{iR} = \bfr_i - \frac{s}{2} \mathbf{\hat{x}}; \quad \quad i=1,2; \quad \mbox{and} \\
+&\bfr_{12} = \bfr_1 - \bfr_2.
+\end{split}
+\end{equation}
+
+\subsubsection*{The Variational Wave Function}
+The variational form of the wave functions is chosen to be of the following form
+\begin{equation}
+\Psi(\bfr_1,\bfr_2) = \phi_1(\bfr_1)\phi_2(\bfr_2)\psi(\bfr_1,\bfr_2),
+\end{equation}
+where 
+\begin{equation}
+\phi_i(\bfr_i) = e^{-r_{1L/a}} + e^{-r_{1R/a}} = \phi_{iL}(\bfr_i) + \phi_{iR}(\bfr_i), \quad i=1,2.
+\end{equation}
+Note that these parts are just the sum of the wave functions of each electron being in the ground state of the left or right hydrogen atom. The interaction part of the wave function is chosen to be the Jastrow function
+\begin{equation}
+\psi(\bfr_1,\bfr_2) = \exp\left[ \frac{r_{12}}{\alpha(1+\beta r_{12})} \right].
+\end{equation}
+Note that we now have four variational parameters $a$, $s$, $\alpha$ and $\beta$. Later we will put constraints on two of these parameters to ensure that the expectation value of the energy remains bounded.
+
+\subsubsection*{The Local Energy}
+The expectation value of the energy is computed using the local energy and a weight function. The weight function is then incorporated using the Metropolis Monte Carlo method, so that the expectation value of the energy is the integral of the local energy using points sampled from the weight function distribution. We thus compute the energy as
+\begin{equation}
+\braket{E} = \frac{\braket{\Psi|H|\Psi}}{\braket{\Psi|\Psi}} = 
+\iint \frac{\Psi^* H \Psi}{\braket{\Psi|\Psi}}  \; d^3\bfr_1 \; d^3\bfr_2 = 
+\iint \frac{\Psi\Psi^*}{\braket{\Psi|\Psi}} \frac{H \Psi}{\Psi} \; d^3\bfr_1 \; d^3\bfr_2 = \iint \omega \varepsilon \; d^3\bfr_1 \; d^3\bfr_2,
+\label{eq:ExpectedEnergy}
+\end{equation} 
+where
+\begin{equation}
+\omega(\bfr_1,\bfr_2) = \frac{|\Psi|^2}{\braket{\Psi|\Psi}},
+\end{equation}
+is the weight function and
+\begin{equation}
+\varepsilon(\bfr_1,\bfr_2) = \frac{H \Psi}{\Psi}
+\label{eq:LocalEnergy}
+\end{equation}
+is the local energy. Note that both expressions depend on the positions $\bfr_1$ and $\bfr_2$, and also on the variational parameters. Furthermore, note that $\omega$ is a normalized probability distribution, which is very useful for the integration of \eqref{eq:ExpectedEnergy}.
+
+Plugging in the variational wave function and the Hydrogen molecule Hamiltonion into \eqref{eq:LocalEnergy} we find an expression for the local energy in our problem
+\begin{equation}
+\begin{split}
+\epsilon(\bfr_1,\bfr_2) &= 
+-\frac{1}{a^2} 
++ \frac{1}{a\phi_1} \left(\frac{\phi_{1L}}{r_{1L}} + \frac{\phi_{1R}}{r_{1R}}\right) 
++ \frac{1}{a\phi_2} \left(\frac{\phi_{2L}}{r_{2L}} + \frac{\phi_{2R}}{r_{2R}}\right)
+- \left( \frac{1}{r_{1L}}+\frac{1}{r_{1R}}+\frac{1}{r_{2L}}+\frac{1}{r_{2R}} \right) \\
+&+ \frac{1}{r_{12}} 
++ \left( \frac{\phi_{1L}\hat{\bfr}_{1L} + \phi_{1R}\hat{\bfr}_{1R}}{\phi_1} - \frac{\phi_{2L}\hat{\bfr}_{2L} + \phi_{2R}\hat{\bfr}_{2R}}{\phi_2} \right) \cdot \frac{\hat{\bfr}_{12}}{2a(1+\beta r_{12})^2} 
+- \frac{(4\beta+1)r_{12}+4}{4(1+\beta r_{12})^4 r_{12}}. 
+\end{split}
+\end{equation}
+
+At this point we can eliminate two variational parameters by imposing the so-called Coulomb cusp conditions. These conditions are required to ensure that the energy does not blow up when either electron approaches either proton, or when the two electrons approach each other. The four cases of an electron approaching a proton leads to the same condition $a(1+e^{-s/a}) = 1$. The case of the two electrons approaching each other leads to the condition $\alpha = 2$.
+
+\subsubsection*{Metropolis Monte Carlo Integration}
+To evaluate the integral \eqref{eq:ExpectedEnergy} we use the Metropolis Monte Carlo method. In this method we choose random positions $\bfr_1^i$ and $\bfr_2^i$ from the distribution $\omega$ and approximate the integral as
+\begin{equation}
+\iint \omega \varepsilon \; d^3\bfr_1 \; d^3\bfr_2 \approx \frac{1}{N} \sum_{i=1}^N \epsilon(\bfr_1^i,\bfr_2^i),
+\end{equation}
+where $(\bfr_1^i,\bfr_2^i) \sim \omega$ are $N$ randomly chosen points from the weight function. The key is to generate a lot of points from the distribution $\omega$, which depends on $\Psi$, without having to normalize it. We can do this by generating a large set of points using a Markov Chain.
+
+%-------------------------------------------------------------------------
+% % RESULTS
+%-------------------------------------------------------------------------
+
+\section{Results and discussion}
+\lipsum[5-6]
+	
+\section{Conclusions}
+\lipsum[7]
+
+\begin{thebibliography}{1}
+	\bibitem{ref_verlet}
+	L.   Verlet  (1967). 
+	\newblock Computer  experiments   on   classical   fluids, 
+	\newblock Thermodynamical properties of Lennard-Jones molecules,
+	\newblock {\em Phys. Rev. 159 (1967), 89 - 103}.
+	
+	\bibitem{ref_Lebowitz}
+	J. L. Lebowitz, J. K. Percus, and L.Verlet, (1967).
+	\newblock Ensemble dependence of fluctuations with application,
+	to machine calculations,
+	\newblock {\em Phys. Rev., 253 (1967), 250 - 254}.
+	
+	\bibitem{ref_Thijssen}
+	J. M. Thijssen (2007).
+	\newblock Computational Physics, Ch. 7-8
+	\newblock {\em Cambridge University Press}
+	
+\end{thebibliography}
+	
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
