@@ -98,7 +98,7 @@
 
 \begin{abstract}
 \noindent  
-Some abstact
+The ground state energy of the Hydrogen molecule was approximated using the variational Monte Carlo method. The trial wave function was chosen to be the product of single electron orbitals and the Jastrow term accounting for the electron-electron interaction. The Hamiltonian of the system takes into account all pairwise Coulomb interaction between the particles, assuming stationary nuclei. The trial wave function and energy essentially depend on two parameters; the separation distance of the nuclei and a parameter of the Jastrow part of the wave function. We minimize the energy with respect to these parameters to find the ground state energy approximation. The calculation of the energy is done using the Metropolis Monte Carlo method. We find that the ground state energy is $-1.1510 \pm 0.0003$ Hartree within our variational subspace at a nucleus separation distance of $1.4 \pm 0.05$ Bohr radii, which agrees very well with experimental values of $-1.1645$ Hartree and $1.400$ Bor radii respectively. This shows that the chosen trial wave function including the Jastrow term approximates the analytical ground state very well. Furthermore we conclude that the Metropolis Monte Carlo method is an efficient method for computing high-dimensional integrals, and this method can therefore be used to compute ground states of more complicated many-body systems.
 
 	
 \end{abstract}
@@ -108,12 +108,12 @@ Some abstact
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
-Solving the Schr\"odinger equation of interacting body systems has proved to be a formidable task and has not been done analytically for systems with more then a few particles. In this paper we approximate the ground state energy of the hydrogen molecule taking all coulomb interactions into account. A variational Monte Carlo method  is used to find the ground state wavefunction as described in Chapter \ref{ch_methods}. In Chapter \ref{ch_results} we describe the results and compare them to literature values and the well known Hartree fock approximation using product states. 
+Solving the Schr\"odinger equation of interacting body systems has proved to be a formidable task and has not been done analytically for systems with more then a few particles. In this paper we approximate the ground state energy of the hydrogen molecule, taking all pairwise Coulomb interactions into account. A variational Monte Carlo method  is used to find the ground state energy as described in Chapter \ref{ch_methods}. In Chapter \ref{ch_results} we describe the results and compare them to literature values and the well known Hartree-Fock approximation using product states. In Chapter~\ref{ch_conclusions} we make concluding remarks on our results and mention future applications of our methods.
 
 %------------------------------------------------
 
 \section{Methods}\label{ch_methods}
- In the variational method for finding the ground state of the hydrogen molecule, we try to minimize the ground state energy from our system hamiltionian, described in section \ref{sec:hamiltonian}, by varying parameters of our trial wavefunction of section \ref{sec:wavefunc}. The computation of the expectation value of the energy from section \ref{sec:localEnergy} is done using the Metropolis Monte Carlo method described in \ref{sec:metropolis}, thereby avoiding the need to normalize the trial wave function and explicit integration in six dimensions. A a final step we optimize the variational parameters to find the ground state within our variational subspace. This is done by a gradient descent method described in \ref{sec:paramaterOptimization}. A full summary of the algorithm and parameters used is then given in section \ref{sec:algorithm}
+ In the variational method for finding the ground state of the hydrogen molecule, we try to minimize the ground state energy from our system hamiltionian, described in section \ref{sec:hamiltonian}, by varying parameters of our trial wavefunction of section \ref{sec:wavefunc}. The computation of the expectation value of the energy from section \ref{sec:localEnergy} is done using the Metropolis Monte Carlo method described in \ref{sec:metropolis}, thereby avoiding the need to normalize the trial wave function and explicit integration in six dimensions. A a final step we optimize the variational parameters to find the ground state within our variational subspace. This is done by a gradient descent method described in \ref{sec:paramaterOptimization}. A full summary of the algorithm and parameters used is then given in section \ref{sec:algorithm}.
 
 \subsection{Natural Units of Computation}\label{sec:au}
 In our computation we naturally use atomic units. For the distance, we use the unit of Bohr radius
@@ -170,7 +170,7 @@ is the weight function and
 \varepsilon(\bfr_1,\bfr_2) = \frac{H \Psi}{\Psi}
 \label{eq:LocalEnergy}
 \end{equation}
-is the local energy. Note that intially both expressions depend on the positions $\bfr_1$ and $\bfr_2$, and also on the variational parameters. As $\Psi$ nears the ground state wavefunction, the local energy will become constant as can be seen from \eqref{eq:LocalEnergy}, so the variation of the local energy  over space gives a criterium for the needed amount of walker steps during the Monte-Carlo loop. Furthermore, note that $\omega$ is a normalized probability distribution, which is very useful for the integration of \eqref{eq:ExpectedEnergy}.
+is the local energy. Note that both expressions depend on the positions $\bfr_1$ and $\bfr_2$, and also on the variational parameters. As $\Psi$ approximates the exact ground state wave function more closely, the local energy will vary less with position. It can be seen from \eqref{eq:LocalEnergy}, that for the exact ground state wave function, the local energy is constant. Furthermore, note that $\omega$ is a normalized probability distribution, which is very useful for the integration of \eqref{eq:ExpectedEnergy}.
 
 Plugging in the variational wave function and the Hydrogen molecule Hamiltonion into \eqref{eq:LocalEnergy} we find an expression for the local energy in our problem
 \begin{equation}
@@ -192,7 +192,7 @@ To evaluate the integral \eqref{eq:ExpectedEnergy} we use the Metropolis Monte C
 \begin{equation}
 \iint \omega \varepsilon \; d^3\bfr_1 \; d^3\bfr_2 \approx \frac{1}{NT} \sum_{i=1}^{NT} \varepsilon(\bfr_1^i,\bfr_2^i) = \braket{\varepsilon},
 \end{equation}
-where $NT$ is the total number of configurations, and $\braket{...}$ denotes the average over all configurations. The key is to generate a lot of points from the distribution $\omega$, which depends on $\Psi$, without having to normalize it. We can do this by generating a large set of points using a Markov Chain. We do this as follows:
+where $NT$ is the total number of configurations, and $\braket{...}$ denotes the average over all configurations. The accuracy of this approximation scales with the number of evaluation points as $\frac{1}{\sqrt{NT}}$ and linearly with the variance in $\varepsilon$. The key is to generate a lot of points from the distribution $\omega$, which depends on $\Psi$, without having to normalize it. We can do this by generating a large set of points using a Markov Chain. We do this as follows:
 
 Let $R$ denote the six dimensional coordinates of both electrons. We initialize the electrons at some random position, and repeatedly propose a new state $R'$. We accept the state with probability $p = \frac{|\Psi(R')|^2}{|\Psi(R)|^2}$. If $p > 1$ we always accept the new state and if the new state is rejected, then the old state $R$ is kept. 
 This process is an ergodic Markov Chain and for large enough number of time steps, the collection of positions $R$ obtained in this way approximately satisfy the distribution $\omega(R)$. This is why we let the positions equilibrate for $T_0$ time steps and then do $T$ of such random walks in the state space, saving each position. This is done simultaneously for $N$ walkers, in order to avoid walkers getting stuck in local minima.
@@ -224,9 +224,7 @@ Note that the tolerance on the derivative is not all small. Firstly, note that t
 \section{Results and discussion}\label{ch_results}
 In Figure~\ref{fig:EvsS_optimalBeta} we have plotted the energy $E$ versus the separation distance $s$ for various $s$ at an optimal value of $\beta$, i.e. the value of $\beta$ that minimizes the energy at a given $s$. This value of $\beta$ is plotted on the right axis. Each calculation was repeated 5 times in order to obtain an estimate of the uncertainty in $E$, which is shown in error bars. We find a minimum energy of $E = -1.1510 \pm 0.0003$ at $s = 1.4 \pm 0.05$. The corresponding value for $\beta = 0.59 \pm 0.01$. 
 
-We compare these values to experimental data found in literature\cite{ref_NIST}\cite{ref_Grinter}. We find a dissociation energy of $-4.477 \unit{eV}$ at $T=0 \unit{K}$, which in units of Hartree is $-0.1645$. Since the dissociation energy is the energy gain from forming the molecular bond from two separate hydrogen atoms, we add $-1$ Hartree to this for the ground state energy of two hydrogen atoms to arrive at a ground state energy for the Hydrogen molecule of $-1.1645$. Our result of $-1.1510 \pm 0.0003$ compares very well with the experimental result, indicating a particularly suitable choice of trial wave function. Furthermore literature states a separation distance of $74.1 \unit{pm}$, which is $1.400$ Bohr radii. Our result agrees with this result nicely.
-
-Finally we observe that the optimal value of $\beta$ decreases linearly as the separation distance $s$ decreases, indicating the reduced interaction between the two electrons.
+We compare these values to experimental data found in literature\cite{ref_NIST}\cite{ref_Grinter}. We find a dissociation energy of $-4.477 \unit{eV}$ at $T=0 \unit{K}$, which in units of Hartree is $-0.1645$. Since the dissociation energy is the energy gain from forming the molecular bond from two separate hydrogen atoms, we add $-1$ Hartree to this for the ground state energy of two hydrogen atoms to arrive at a ground state energy for the Hydrogen molecule of $-1.1645$. Our result of $-1.1510 \pm 0.0003$ compares very well with the experimental result, indicating a particularly suitable choice of trial wave function. Furthermore literature states a separation distance of $74.1 \unit{pm}$, which is $1.400$ Bohr radii. Our result agrees with this result nicely. Finally we observe that the optimal value of $\beta$ decreases linearly as the separation distance $s$ decreases, indicating the reduced interaction between the two electrons.
 
 \begin{figure}
 	\centering
@@ -256,7 +254,7 @@ In Figure~\ref{fig:3dPlot} we have plotted the energy $E$ in the full parameter 
 \end{figure}
 
 	
-\section{Conclusions}
+\section{Conclusions}\label{ch_conclusions}
 
 
 \begin{thebibliography}{1}
