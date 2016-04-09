@@ -224,7 +224,7 @@ Note that the tolerance on the derivative is not all small. Firstly, note that t
 \section{Results and discussion}\label{ch_results}
 In Figure~\ref{fig:EvsS_optimalBeta} we have plotted the energy $E$ versus the separation distance $s$ for various $s$ at an optimal value of $\beta$, i.e. the value of $\beta$ that minimizes the energy at a given $s$. This value of $\beta$ is plotted on the right axis. Each calculation was repeated 5 times in order to obtain an estimate of the uncertainty in $E$, which is shown in error bars. We find a minimum energy of $E = -1.1510 \pm 0.0003$ at $s = 1.4 \pm 0.05$. The corresponding value for $\beta = 0.59 \pm 0.01$. 
 
-We compare these values to experimental data found in literature\cite{ref_NIST}\cite{ref_Grinter}. We find a dissociation energy of $-4.477 \unit{eV}$ at $T=0 \unit{K}$, which in units of Hartree is $-0.1645$. Since the dissociation energy is the energy gain from forming the molecular bond from two separate hydrogen atoms, we add $-1$ Hartree to this for the ground state energy of two hydrogen atoms to arrive at a ground state energy for the Hydrogen molecule of $-1.1645$. Our result of $-1.1510 \pm 0.0003$ compares very well with the experimental result, indicating a particularly suitable choice of trial wave function. Furthermore literature states a separation distance of $74.1 \unit{pm}$, which is $1.400$ Bohr radii. Our result agrees with this result nicely.
+We compare these values to experimental data found in literature\cite{ref_NIST}\cite{ref_Grinter}. We find a dissociation energy of $-4.477 \unit{eV}$ at $T=0 \unit{K}$, which in units of Hartree is $-0.1645$. Since the dissociation energy is the energy gain from forming the molecular bond from two separate hydrogen atoms, we add $-1$ Hartree to this for the ground state energy of two hydrogen atoms to arrive at a ground state energy for the Hydrogen molecule of $-1.1645$. Our result of $-1.1510 \pm 0.0003$ compares very well with the experimental result as compared to the Hartree Fock approximation which arrives at $-1.125$ Hartree. This indicates that the inclusion of the Jastrow function gives better approximation of the ground state wavefunction than just using a product state of independent wavefunctions. Furthermore the literature states a separation distance of $74.1 \unit{pm}$, which is $1.400$ Bohr radii. Our result agrees with this result.
 
 Finally we observe that the optimal value of $\beta$ decreases linearly as the separation distance $s$ decreases, indicating the reduced interaction between the two electrons.
 
@@ -256,7 +256,8 @@ In Figure~\ref{fig:3dPlot} we have plotted the energy $E$ in the full parameter 
 \end{figure}
 
 	
-\section{Conclusions}
+\section{Conclusions and look forward}
+In this paper a variational Monte-Carlo method was used to obtain an estimation for the ground state wavefunction and energy of a hydrogen molecule. The result of $-1.1510 \pm 0.0003$ compared well to the experimental value $-1.1645$, but is highly dependent on the choice of variational wavefunction, which is a complex problem on its own. This paper therefore shows a proof of principle, that using Monte-Carlo integration in calculating the six dimensional integral in order to obtain the energy is a valid approach. The code is designed to be easily adopted to higher dimensional problems, for which the benefit of using Monte-Carlo integration increases due to the fact that the variance of the integral outcome goes as $\frac{1}{\sqrt{N}}$ and does not depend on the dimensions of the problem as opposed to equidistant integration methods.
 
 
 \begin{thebibliography}{1}
