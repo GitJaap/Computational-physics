@@ -98,7 +98,7 @@
 
 \begin{abstract}
 \noindent  
-The ground state energy of the Hydrogen molecule was approximated using the variational Monte Carlo method. The trial wave function was chosen to be the product of single electron orbitals and the Jastrow term accounting for the electron-electron interaction. The Hamiltonian of the system takes into account all pairwise Coulomb interaction between the particles, assuming stationary nuclei. The trial wave function and energy essentially depend on two parameters; the separation distance of the nuclei and a parameter of the Jastrow part of the wave function. We minimize the energy with respect to these parameters to find the ground state energy approximation. The calculation of the energy is done using the Metropolis Monte Carlo method. We find that the ground state energy is $-1.1510 \pm 0.0003$ Hartree within our variational subspace at a nucleus separation distance of $1.4 \pm 0.05$ Bohr radii, which agrees very well with experimental values of $-1.1645$ Hartree and $1.400$ Bor radii respectively. This shows that the chosen trial wave function including the Jastrow term approximates the analytical ground state very well. Furthermore we conclude that the Metropolis Monte Carlo method is an efficient method for computing high-dimensional integrals, and this method can therefore be used to compute ground states of more complicated many-body systems.
+The ground state energy of the Hydrogen molecule was approximated using the variational Monte Carlo method. The trial wave function was chosen to be the product of single electron orbitals and the Jastrow term. Our Hamiltonian takes into account all pairwise Coulomb interaction between the particles, assuming stationary nuclei. We minimize the energy with respect to the variational parameters to find the ground state energy approximation. Calculation of the energy is done using the Metropolis Monte Carlo method. We find that the ground state energy is $-1.1510 \pm 0.0003$ Hartree at a nucleus separation distance of $1.4 \pm 0.05$ Bohr radii, which agrees very well with experimental values of $-1.1645$ Hartree and $1.400$ Bohr radii respectively. This shows that the chosen trial wave function including the Jastrow term approximates the analytical ground state very well. Furthermore we conclude that the Metropolis Monte Carlo method is an efficient method for computing high-dimensional integrals, and this method can therefore be used to compute ground states of more complicated many-body systems.
 
 	
 \end{abstract}
@@ -113,7 +113,7 @@ Solving the Schr\"odinger equation of interacting body systems has proved to be 
 %------------------------------------------------
 
 \section{Methods}\label{ch_methods}
- In the variational method for finding the ground state of the hydrogen molecule, we try to minimize the ground state energy from our system hamiltionian, described in section \ref{sec:hamiltonian}, by varying parameters of our trial wavefunction of section \ref{sec:wavefunc}. The computation of the expectation value of the energy from section \ref{sec:localEnergy} is done using the Metropolis Monte Carlo method described in \ref{sec:metropolis}, thereby avoiding the need to normalize the trial wave function and explicit integration in six dimensions. A a final step we optimize the variational parameters to find the ground state within our variational subspace. This is done by a gradient descent method described in \ref{sec:paramaterOptimization}. A full summary of the algorithm and parameters used is then given in section \ref{sec:algorithm}.
+ In the variational method for finding the ground state of the hydrogen molecule, we try to minimize the ground state energy from our system Hamiltonian, described in section \ref{sec:hamiltonian}, by varying parameters of our trial wave function of section \ref{sec:wavefunc}. The computation of the expectation value of the energy from section \ref{sec:localEnergy} is done using the Metropolis Monte Carlo method described in \ref{sec:metropolis}, thereby avoiding the need to normalize the trial wave function and explicit integration in six dimensions. As a final step we optimize the variational parameters to find the ground state within our variational subspace. This is done by a gradient descent method described in \ref{sec:paramaterOptimization}. A full summary of the algorithm and parameters used is then given in section \ref{sec:algorithm}.
 
 \subsection{Natural Units of Computation}\label{sec:au}
 In our computation we naturally use atomic units. For the distance, we use the unit of Bohr radius
@@ -172,7 +172,7 @@ is the weight function and
 \end{equation}
 is the local energy. Note that both expressions depend on the positions $\bfr_1$ and $\bfr_2$, and also on the variational parameters. As $\Psi$ approximates the exact ground state wave function more closely, the local energy will vary less with position. It can be seen from \eqref{eq:LocalEnergy}, that for the exact ground state wave function, the local energy is constant. Furthermore, note that $\omega$ is a normalized probability distribution, which is very useful for the integration of \eqref{eq:ExpectedEnergy}.
 
-Plugging in the variational wave function and the Hydrogen molecule Hamiltonion into \eqref{eq:LocalEnergy} we find an expression for the local energy in our problem
+Plugging in the variational wave function and the Hydrogen molecule Hamiltonian into \eqref{eq:LocalEnergy} we find an expression for the local energy in our problem
 \begin{equation}
 \begin{split}
 \varepsilon(\bfr_1,\bfr_2) &= 
@@ -195,7 +195,7 @@ To evaluate the integral \eqref{eq:ExpectedEnergy} we use the Metropolis Monte C
 where $NT$ is the total number of configurations, and $\braket{...}$ denotes the average over all configurations. The accuracy of this approximation scales with the number of evaluation points as $\frac{1}{\sqrt{NT}}$ and linearly with the variance in $\varepsilon$. The key is to generate a lot of points from the distribution $\omega$, which depends on $\Psi$, without having to normalize it. We can do this by generating a large set of points using a Markov Chain. We do this as follows:
 
 Let $R$ denote the six dimensional coordinates of both electrons. We initialize the electrons at some random position, and repeatedly propose a new state $R'$. We accept the state with probability $p = \frac{|\Psi(R')|^2}{|\Psi(R)|^2}$. If $p > 1$ we always accept the new state and if the new state is rejected, then the old state $R$ is kept. 
-This process is an ergodic Markov Chain and for large enough number of time steps, the collection of positions $R$ obtained in this way approximately satisfy the distribution $\omega(R)$. This is why we let the positions equilibrate for $T_0$ time steps and then do $T$ of such random walks in the state space, saving each position. This is done simultaneously for $N$ walkers, in order to avoid walkers getting stuck in local minima.
+This process is an ergodic Markov Chain and for large enough number of time steps, the collection of positions $R$ obtained in this way approximately satisfy the distribution $\omega(R)$. This is why we let the positions equilibrate for $T_0$ time steps and then do $T$ of such random walks in the state space, saving each position. This is done simultaneously for $N$ walkers, in order to avoid walkers getting stuck in local minimums.
 
 \subsection{Parameter optimization}\label{sec:paramaterOptimization}
 So far we have described a way to find the expectation value of the energy for a proposed trial wave function given the Hamiltonian of the Hydrogen molecule. In order to obtain the ground state within the variational subspace, we must minimize this energy with respect to the variational parameters. As we have seen before, we effectively have 3 parameters and one constraint, after setting $\alpha = 2$. Perfect optimization with respect to the three parameters would lead to a constraint optimization problem. However, this is overly complicated, and in this paper we compute the energy for various $s$. Fixing $s$, yields $a$ from the constraint $a(1+e^{-s/a}) = 1$, leaving $\beta$ as the only free parameter. For this, we can just use a gradient descent method. Computing the derivative of the energy w.r.t. $\beta$ using a finite difference scheme would yield large errors due to the stochastic nature of the approach. However, this derivative can be computed differently. From \eqref{eq:ExpectedEnergy} we find\cite{ref_Harju}\cite{ref_Thijssen} 
@@ -224,20 +224,27 @@ Note that the tolerance on the derivative is not all small. Firstly, note that t
 \section{Results and discussion}\label{ch_results}
 In Figure~\ref{fig:EvsS_optimalBeta} we have plotted the energy $E$ versus the separation distance $s$ for various $s$ at an optimal value of $\beta$, i.e. the value of $\beta$ that minimizes the energy at a given $s$. This value of $\beta$ is plotted on the right axis. Each calculation was repeated 5 times in order to obtain an estimate of the uncertainty in $E$, which is shown in error bars. We find a minimum energy of $E = -1.1510 \pm 0.0003$ at $s = 1.4 \pm 0.05$. The corresponding value for $\beta = 0.59 \pm 0.01$. 
 
-We compare these values to experimental data found in literature\cite{ref_NIST}\cite{ref_Grinter}. We find a dissociation energy of $-4.477 \unit{eV}$ at $T=0 \unit{K}$, which in units of Hartree is $-0.1645$. Since the dissociation energy is the energy gain from forming the molecular bond from two separate hydrogen atoms, we add $-1$ Hartree to this for the ground state energy of two hydrogen atoms to arrive at a ground state energy for the Hydrogen molecule of $-1.1645$. Our result of $-1.1510 \pm 0.0003$ compares very well with the experimental result, indicating a particularly suitable choice of trial wave function. Furthermore literature states a separation distance of $74.1 \unit{pm}$, which is $1.400$ Bohr radii. Our result agrees with this result nicely. Finally we observe that the optimal value of $\beta$ decreases linearly as the separation distance $s$ decreases, indicating the reduced interaction between the two electrons.
+We compare these values to experimental data found in literature\cite{ref_NIST}\cite{ref_Grinter}. We find a dissociation energy of $-4.477 \unit{eV}$ at $T=0 \unit{K}$, which in units of Hartree is $-0.1645$. Since the dissociation energy is the energy gain from forming the molecular bond from two separate hydrogen atoms, we add $-1$ Hartree to this for the ground state energy of two hydrogen atoms to arrive at a ground state energy for the Hydrogen molecule of $-1.1645$. Our result of $-1.1510 \pm 0.0003$ agrees very well with the experimental result compared to the Hartree-Fock approximation which yields at $-1.125$ Hartree. This indicates that the inclusion of the Jastrow function gives better approximation of the ground state wave function than just using a product state of independent wave functions. Furthermore the literature states a separation distance of $74.1 \unit{pm}$, which is $1.400$ Bohr radii. Our result agrees with this result. Finally we observe that the optimal value of $\beta$ decreases linearly as the separation distance $s$ decreases, indicating the reduced interaction between the two electrons.
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{figs/EvsS_optimalBeta.eps}
 	\caption{Plot of the energy $E$ and $\beta$ versus the separation distance $s$, where $\beta$ is optimized to minimize the energy. The solid line shows the energy $E$ on the left axis and the dotted line shows the corresponding $\beta$ on the right axis, each as a function of $s$.}
 	\label{fig:EvsS_optimalBeta}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 \centering
-\includegraphics[width=0.8\linewidth]{figs/EvsBeta.eps}
+\includegraphics[width=0.75\linewidth]{figs/EvsBeta.eps}
 \caption{Plot of the energy $E$ versus $\beta$ and a separation distance $s=1.4$. This function attains a minimum near $\beta = 0.59$. The energy $E$ varies only slowly with $\beta$ for $\beta>0.4$.}
 \label{fig:EvsBeta}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.75\linewidth]{figs/3dPlot.eps}
+	\caption{3D plot of the energy $E$ as a function of both parameters $s$ and $beta$. We see the minimum at approximately $s\approx1.4$ and $\beta \approx 0.6$. This figure illustrates the dependence of the energy on the variational parameters. Observe a strong increase in energy for small $s$ and $\beta$. }
+	\label{fig:3dPlot}
 \end{figure}
 
 In Figure~\ref{fig:EvsBeta} we have plotted the energy $E$ versus $\beta$ at the optimal separation distance $s = 1.4$. We have done this to examine the behavior of the energy as a function of $\beta$. We see a sharp increase in energy for small beta decreasing to zero. The minimum is obtained at $\beta = 0.59 \pm 0.01$ and the energy is only weakly dependent on $\beta$ for larger beta. Using this knowledge, we choose to initiate $\beta$ at 0.6 and use a search step length $\gamma = 10$ when looking for the optimal $\beta$ until the derivative is smaller than $e = 10^{-4}$.
@@ -246,15 +253,11 @@ In Figure~\ref{fig:3dPlot} we have plotted the energy $E$ in the full parameter 
 
 
 
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{figs/3dPlot.eps}
-\caption{3D plot of the energy $E$ as a function of both parameters $s$ and $beta$. We see the minimum at approximately $s\approx1.4$ and $\beta \approx 0.6$. This figure illustrates the dependence of the energy on the variational parameters. Observe a strong increase in energy for small $s$ and $\beta$. }
-\label{fig:3dPlot}
-\end{figure}
 
-	
-\section{Conclusions}\label{ch_conclusions}
+
+
+\section{Conclusions and look forward}\label{ch_conclusions}
+In this paper a variational Monte-Carlo method was used to obtain an estimation for the ground state wave function and energy of a hydrogen molecule. The result of $-1.1510 \pm 0.0003$ compared well to the experimental value $-1.1645$, but is highly dependent on the choice of variational wave function, which is a complex problem on its own. This paper therefore shows a proof of principle, that using Monte-Carlo integration in calculating the six dimensional integral in order to obtain the energy is a valid approach. The code is designed to be easily adopted to higher dimensional problems, for which the benefit of using Monte-Carlo integration increases due to the fact that the variance of the integral outcome goes as $\frac{1}{\sqrt{N}}$ and does not depend on the dimensions of the problem as opposed to equidistant integration methods.
 
 
 \begin{thebibliography}{1}
