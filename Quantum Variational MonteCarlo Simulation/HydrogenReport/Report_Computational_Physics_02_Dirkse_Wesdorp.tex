@@ -108,14 +108,14 @@ Some abstact
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
-
+Solving the Schr\"odinger equation of interacting body systems has proved to be a formidable task and has not been done analytically for systems with more then a few particles. In this paper we approximate the ground state energy of the hydrogen molecule taking all coulomb interactions into account. A variational Monte Carlo method  is used to find the ground state wavefunction as described in Chapter \ref{ch_methods}. In Chapter \ref{ch_results} we describe the results and compare them to literature values and the well known Hartree fock approximation using product states. 
 
 %------------------------------------------------
 
-\section{Methods}
-In the variational method for finding the ground state of a system, we start with a trial wave function of a specific form, which depends on one or more variational parameters. We then compute the expectation value of the energy, given the Hamiltonian of the system and optimize the parameters to find the ground state within our variational subspace. The computation of the expectation value of the energy is done using the Metropolis Monte Carlo method, thereby avoiding the need to normalize the trial wave function and explicit integration in six dimensions. The optimization of the variational parameters is done by a gradient descent method, where the derivative of the energy with respect to each variational parameter is computed using some statistical averaging algorithm, thereby avoiding the use of finite differences of stochastic variables. 
+\section{Methods}\label{ch_methods}
+ In the variational method for finding the ground state of the hydrogen molecule, we try to minimize the ground state energy from our system hamiltionian, described in section \ref{sec:hamiltonian}, by varying parameters of our trial wavefunction of section \ref{sec:wavefunc}. The computation of the expectation value of the energy from section \ref{sec:localEnergy} is done using the Metropolis Monte Carlo method described in \ref{sec:metropolis}, thereby avoiding the need to normalize the trial wave function and explicit integration in six dimensions. A a final step we optimize the variational parameters to find the ground state within our variational subspace. This is done by a gradient descent method described in \ref{sec:paramaterOptimization}. A full summary of the algorithm and parameters used is then given in section \ref{sec:algorithm}
 
-\subsubsection*{Natural Units of Computation}
+\subsection{Natural Units of Computation}\label{sec:au}
 In our computation we naturally use atomic units. For the distance, we use the unit of Bohr radius
 \begin{equation}
 a_0 = \frac{4\pi \varepsilon_0 \hbar^2}{me^2} \approx 0.529 \times 10^{-10} \unit{m},
@@ -125,7 +125,7 @@ and for energy we use twice the ionization energy of a Hydrogen atom
 E_0 = \frac{m}{\hbar^2} \left(\frac{e^2}{4\pi \varepsilon_0}\right)^2 \approx 27.2 \unit{eV}. 
 \end{equation}
 
-\subsubsection*{The Hamiltonian of the Hydrogen Molecule}
+\subsection{The Hamiltonian of the Hydrogen Molecule}\label{sec:hamiltonian}
 In this paper we approximate the Hydrogen molecule system as two stationary protons separated by a distance $s$, supplemented with two electrons. We choose our coordinate system such that both protons are symmetrically located around the origin and positioned on the x-axis, i.e. the protons are at $[\pm s/2,0,0]^T$. The Hamiltonian of this system includes the kinetic energy of the electrons, the potential energy of each electron due to the two protons, an electron-electron interaction term and the proton-proton interaction term. Let the positions of the electrons be given by $\bfr_1$ and $\bfr_2$ respectively. In our natural units, the Hamiltonian is then given by
 \begin{equation}
 H = -\frac{1}{2} (\nabla_1^2 + \nabla_2^2) - \left[ \frac{1}{r_{1L}} + \frac{1}{r_{1R}} + \frac{1}{r_{2L}} + \frac{1}{r_{2R}}  \right] + \frac{1}{r_{12}} + \frac{1}{s},
@@ -138,7 +138,7 @@ where
 \end{split}
 \end{equation}
 
-\subsubsection*{The Variational Wave Function}
+\subsection{The Variational Wave Function}\label{sec:wavefunc}
 The variational form of the wave functions is chosen to be of the following form
 \begin{equation}
 \Psi(\bfr_1,\bfr_2) = \phi_1(\bfr_1)\phi_2(\bfr_2)\psi(\bfr_1,\bfr_2),
@@ -153,7 +153,7 @@ Note that these parts are just the sum of the wave functions of each electron be
 \end{equation}
 Note that we now have four variational parameters $a$, $s$, $\alpha$ and $\beta$. Later we will put constraints on two of these parameters to ensure that the expectation value of the energy remains bounded.
 
-\subsubsection*{The Local Energy}
+\subsection{The Local Energy}\label{sec:localEnergy}
 The expectation value of the energy is computed using the local energy and a weight function. The weight function is then incorporated using the Metropolis Monte Carlo method, so that the expectation value of the energy is the integral of the local energy using points sampled from the weight function distribution. We thus compute the energy as
 \begin{equation}
 E = \frac{\braket{\Psi|H|\Psi}}{\braket{\Psi|\Psi}} = 
@@ -170,7 +170,7 @@ is the weight function and
 \varepsilon(\bfr_1,\bfr_2) = \frac{H \Psi}{\Psi}
 \label{eq:LocalEnergy}
 \end{equation}
-is the local energy. Note that both expressions depend on the positions $\bfr_1$ and $\bfr_2$, and also on the variational parameters. Furthermore, note that $\omega$ is a normalized probability distribution, which is very useful for the integration of \eqref{eq:ExpectedEnergy}.
+is the local energy. Note that intially both expressions depend on the positions $\bfr_1$ and $\bfr_2$, and also on the variational parameters. As $\Psi$ nears the ground state wavefunction, the local energy will become constant as can be seen from \eqref{eq:LocalEnergy}, so the variation of the local energy  over space gives a criterium for the needed amount of walker steps during the Monte-Carlo loop. Furthermore, note that $\omega$ is a normalized probability distribution, which is very useful for the integration of \eqref{eq:ExpectedEnergy}.
 
 Plugging in the variational wave function and the Hydrogen molecule Hamiltonion into \eqref{eq:LocalEnergy} we find an expression for the local energy in our problem
 \begin{equation}
@@ -187,25 +187,25 @@ Plugging in the variational wave function and the Hydrogen molecule Hamiltonion 
 \end{equation}
 At this point we can eliminate two variational parameters by imposing the so-called Coulomb cusp conditions. These conditions are required to ensure that the energy does not blow up when either electron approaches either proton, or when the two electrons approach each other. The four cases of an electron approaching a proton leads to the same condition $a(1+e^{-s/a}) = 1$. The case of the two electrons approaching each other leads to the condition $\alpha = 2$.
 
-\subsubsection*{Metropolis Monte Carlo Integration}
+\subsection{Metropolis Monte Carlo Integration}\label{sec:metropolis}
 To evaluate the integral \eqref{eq:ExpectedEnergy} we use the Metropolis Monte Carlo method. In this method we choose random positions $\bfr_1^i$ and $\bfr_2^i$ from the distribution $\omega$ and approximate the integral as
 \begin{equation}
 \iint \omega \varepsilon \; d^3\bfr_1 \; d^3\bfr_2 \approx \frac{1}{NT} \sum_{i=1}^{NT} \varepsilon(\bfr_1^i,\bfr_2^i) = \braket{\varepsilon},
 \end{equation}
 where $NT$ is the total number of configurations, and $\braket{...}$ denotes the an average over all configurations. The key is to generate a lot of points from the distribution $\omega$, which depends on $\Psi$, without having to normalize it. We can do this by generating a large set of points using a Markov Chain. We do this as follows:
 
-Let $R$ denote the six dimensional coordinates of both electrons. We initialize the electrons at some random position, and repeatedly propose a new state $R'$. We accept the state with probability $p = \frac{|\Psi(R')|^2}{|\Psi(R)|^2}$. If $p > 1$ we always accept the new state and if the new state is rejected, then the old state $R$ is kept. First we let the positions equilibrate for $T_0$ time steps and then do $T$ of such random walks in the state space, saving each position. This process is done simultaneously for $N$ walkers, in order to avoid walkers getting stuck in local minimums.
-This process is an ergodic Markov Chain and for large enough number of time steps, the collection of positions $R$ obtained in this way approximately satisfy the distribution $\omega(R)$.
+Let $R$ denote the six dimensional coordinates of both electrons. We initialize the electrons at some random position, and repeatedly propose a new state $R'$. We accept the state with probability $p = \frac{|\Psi(R')|^2}{|\Psi(R)|^2}$. If $p > 1$ we always accept the new state and if the new state is rejected, then the old state $R$ is kept. 
+This process is an ergodic Markov Chain and for large enough number of time steps, the collection of positions $R$ obtained in this way approximately satisfy the distribution $\omega(R)$. This is why we let the positions equilibrate for $T_0$ time steps and then do $T$ of such random walks in the state space, saving each position. This is done simultaneously for $N$ walkers, in order to avoid walkers getting stuck in local minima.
 
-\subsubsection*{Parameter optimization}
+\subsection{Parameter optimization}\label{sec:paramaterOptimization}
 So far we have described a way to find the expectation value of the energy for a proposed trial wave function given the Hamiltonian of the Hydrogen molecule. In order to obtain the ground state within the variational subspace, we must minimize this energy with respect to the variational parameters. As we have seen before, we effectively have 3 parameters and one constraint, after setting $\alpha = 2$. Perfect optimization with respect to the three parameters would lead to a constraint optimization problem. However, this is overly complicated, and in this paper we compute the energy for various $s$. Fixing $s$, yields $a$ from the constraint $a(1+e^{-s/a}) = 1$, leaving $\beta$ as the only free parameter. For this, we can just use a gradient descent method. Computing the derivative of the energy w.r.t. $\beta$ using a finite difference scheme would yield large errors due to the stochastic nature of the approach. However, this derivative can be computed differently. From \eqref{eq:ExpectedEnergy} we find\cite{ref_Harju}\cite{ref_Thijssen} 
 \begin{equation}
 \frac{\partial E}{\partial \beta} = 2\left( \Braket{\varepsilon \frac{\partial \ln \Psi}{\partial \beta}} - E\Braket{\frac{\partial \ln \Psi}{\partial \beta}} \right),
 \end{equation}
 which generally holds for any variational parameter $\beta$ and trial wave function $\Psi$. In our case we find that $\frac{\partial \ln \Psi}{\partial \beta} = -\frac{r_{12}^2}{2(1+\beta r_{12})}$.
 
-\subsubsection*{Algorithm overview}
-Here we briefly summarize the algorithm and highlight some implementation choices we made. We use $N = 400$ walkers, which we update $T_0 = 4000$ iterations to equilibrate and then generate $T = 26000$ updates for each walker, obtaining $NT = 10.4 \times 10^6$ configurations. We set some value for $s$ and $\beta$ and obtain $a$ from $s$. We then perform the algorithm.
+\subsection{Algorithm overview}\label{sec:algorithm}
+Here we briefly summarize the algorithm and highlight some implementation choices we made. The algorithm was performed as follows:
 
 \begin{enumerate}
 	\item Initiate $N$ walkers uniformly within a six-dimensional hypercube of side $2s + 4a$ centered around the origin.
@@ -213,13 +213,14 @@ Here we briefly summarize the algorithm and highlight some implementation choice
 	\item Update walkers $T$ times as above and save their positions. Compute $\varepsilon$ for all positions. From this find $E$, Var($\varepsilon$) and $\frac{\partial E}{\partial \beta}$.
 	\item Update $\beta \leftarrow \beta - \gamma \frac{\partial E}{\partial \beta}$, where we use $\gamma = 10$. Repeat 1-4 until $|\frac{\partial E}{\partial \beta}| < e$, where $e$ is some tolerance on the magnitude of the derivative, which we choose to be $10^{-4}$.
 \end{enumerate}
-This procedure was performed for various $s$. We note that the tolerance on the derivative is not all that small, but this is due to 2 reasons. Firstly, note that the derivative is based on stochastic variables and may deviate from the exact result. Secondly, we note that small changes in $\beta$ have a very small effect on the ground state energy found. Finally we note that the choice of the step length $\gamma$ depends strongly on the initial guess of $\beta$ and its distance to the optimal value. 
+We used $N = 400$ walkers, which we updated each of the $T_0 = 4000$ iterations to equilibrate and then generated $T = 26000$ updates for each walker, obtaining $NT = 10.4 \times 10^6$ configurations. We varied $s$ between $1$ and $1.8$ and optimized $\beta$ for each s taking $\beta_{init} = 0.6$.
+Note that the tolerance on the derivative is not all small. Firstly, note that the derivative is based on stochastic variables and may deviate from the exact result. Secondly, we note that small changes in $\beta$ have a very small effect on the ground state energy found. Finally we note that the choice of the step length $\gamma$ depends strongly on the initial guess of $\beta$ and its distance to the optimal value. 
 
 %-------------------------------------------------------------------------
 % % RESULTS
 %-------------------------------------------------------------------------
 
-\section{Results and discussion}
+\section{Results and discussion}\label{ch_results}
 
 	
 \section{Conclusions}
