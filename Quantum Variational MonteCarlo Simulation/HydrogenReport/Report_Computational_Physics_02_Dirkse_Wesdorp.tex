@@ -17,7 +17,7 @@
 
 \usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
 \usepackage{multicol} % Used for the two-column layout of the document
-\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage[width=.8\textwidth,hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
 \usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
 \usepackage{hyperref} % For hyperlinks in the PDF
 
@@ -57,7 +57,7 @@
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
-\title{\vspace{-15mm}\fontsize{18pt}{10pt}\selectfont\textbf{Computation of the Ground State Energy and Wave Function of the Hydrogen Molecule using the Variational Monte Carlo Method}} % Article title
+\title{\vspace{-15mm}\fontsize{18pt}{10pt}\selectfont\textbf{Computation of the Ground State Energy of the Hydrogen Molecule using the Variational Monte Carlo Method}} % Article title
 
 \author{
 	\large
@@ -120,7 +120,7 @@ In our computation we naturally use atomic units. For the distance, we use the u
 \begin{equation}
 a_0 = \frac{4\pi \varepsilon_0 \hbar^2}{me^2} \approx 0.529 \times 10^{-10} \unit{m},
 \end{equation}
-and for energy we use twice the ionization energy of a Hydrogen atom
+and for energy we use the Hartree unit
 \begin{equation}
 E_0 = \frac{m}{\hbar^2} \left(\frac{e^2}{4\pi \varepsilon_0}\right)^2 \approx 27.2 \unit{eV}. 
 \end{equation}
@@ -192,7 +192,7 @@ To evaluate the integral \eqref{eq:ExpectedEnergy} we use the Metropolis Monte C
 \begin{equation}
 \iint \omega \varepsilon \; d^3\bfr_1 \; d^3\bfr_2 \approx \frac{1}{NT} \sum_{i=1}^{NT} \varepsilon(\bfr_1^i,\bfr_2^i) = \braket{\varepsilon},
 \end{equation}
-where $NT$ is the total number of configurations, and $\braket{...}$ denotes the an average over all configurations. The key is to generate a lot of points from the distribution $\omega$, which depends on $\Psi$, without having to normalize it. We can do this by generating a large set of points using a Markov Chain. We do this as follows:
+where $NT$ is the total number of configurations, and $\braket{...}$ denotes the average over all configurations. The key is to generate a lot of points from the distribution $\omega$, which depends on $\Psi$, without having to normalize it. We can do this by generating a large set of points using a Markov Chain. We do this as follows:
 
 Let $R$ denote the six dimensional coordinates of both electrons. We initialize the electrons at some random position, and repeatedly propose a new state $R'$. We accept the state with probability $p = \frac{|\Psi(R')|^2}{|\Psi(R)|^2}$. If $p > 1$ we always accept the new state and if the new state is rejected, then the old state $R$ is kept. First we let the positions equilibrate for $T_0$ time steps and then do $T$ of such random walks in the state space, saving each position. This process is done simultaneously for $N$ walkers, in order to avoid walkers getting stuck in local minimums.
 This process is an ergodic Markov Chain and for large enough number of time steps, the collection of positions $R$ obtained in this way approximately satisfy the distribution $\omega(R)$.
@@ -220,6 +220,40 @@ This procedure was performed for various $s$. We note that the tolerance on the 
 %-------------------------------------------------------------------------
 
 \section{Results and discussion}
+In Figure~\ref{fig:EvsS_optimalBeta} we have plotted the energy $E$ versus the separation distance $s$ for various $s$ at an optimal value of $\beta$, i.e. the value of $\beta$ that minimizes the energy at a given $s$. This value of $\beta$ is plotted on the right axis. Each calculation was repeated 5 times in order to obtain an estimate of the uncertainty in $E$, which is shown in error bars. We find a minimum energy of $E = -1.1510 \pm 0.0003$ at $s = 1.4 \pm 0.05$. The corresponding value for $\beta = 0.59 \pm 0.01$. 
+
+We compare these values to experimental data found in literature\cite{ref_NIST}\cite{ref_Grinter}. We find a dissociation energy of $-4.477 \unit{eV}$ at $T=0 \unit{K}$, which in units of Hartree is $-0.1645$. Since the dissociation energy is the energy gain from forming the molecular bond from two separate hydrogen atoms, we add $-1$ Hartree to this for the ground state energy of two hydrogen atoms to arrive at a ground state energy for the Hydrogen molecule of $-1.1645$. Our result of $-1.1510 \pm 0.0003$ compares very well with the experimental result, indicating a particularly suitable choice of trial wave function. Furthermore literature states a separation distance of $74.1 \unit{pm}$, which is $1.400$ Bohr radii. Our result agrees with this result nicely.
+
+Finally we observe that the optimal value of $\beta$ decreases linearly as the separation distance $s$ decreases, indicating the reduced interaction between the two electrons.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{figs/EvsS_optimalBeta.eps}
+	\caption{Plot of the energy $E$ and $\beta$ versus the separation distance $s$, where $\beta$ is optimized to minimize the energy. The solid line shows the energy $E$ on the left axis and the dotted line shows the corresponding $\beta$ on the right axis, each as a function of $s$.}
+	\label{fig:EvsS_optimalBeta}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth]{figs/EvsBeta.eps}
+\caption{Plot of the energy $E$ versus $\beta$ and a separation distance $s=1.4$. This function attains a minimum near $\beta = 0.59$. The energy $E$ varies only slowly with $\beta$ for $\beta>0.4$.}
+\label{fig:EvsBeta}
+\end{figure}
+
+In Figure~\ref{fig:EvsBeta} we have plotted the energy $E$ versus $\beta$ at the optimal separation distance $s = 1.4$. We have done this to examine the behavior of the energy as a function of $\beta$. We see a sharp increase in energy for small beta decreasing to zero. The minimum is obtained at $\beta = 0.59 \pm 0.01$ and the energy is only weakly dependent on $\beta$ for larger beta. Using this knowledge, we choose to initiate $\beta$ at 0.6 and use a search step length $\gamma = 10$ when looking for the optimal $\beta$ until the derivative is smaller than $e = 10^{-4}$.
+
+In Figure~\ref{fig:3dPlot} we have plotted the energy $E$ in the full parameter space spanned by $s$ and $\beta$. We see that the minimum is indeed attained $s \approx 1.4$ and $\beta \approx 0.6$. The figures shows how the energy varies when changing $s$ and/or $\beta$.
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figs/3dPlot.eps}
+\caption{3D plot of the energy $E$ as a function of both parameters $s$ and $beta$. We see the minimum at approximately $s\approx1.4$ and $\beta \approx 0.6$. This figure illustrates the dependence of the energy on the variational parameters. Observe a strong increase in energy for small $s$ and $\beta$. }
+\label{fig:3dPlot}
+\end{figure}
+
+
 
 	
 \section{Conclusions}
@@ -240,6 +274,11 @@ This procedure was performed for various $s$. We note that the tolerance on the 
 	B. Darwent (1970).
 	\newblock Bond Dissociation Energies in Simple Molecules,
 	\newblock{\em NIST NSRDS-NBS 31}
+	
+	\bibitem{ref_Grinter}
+	R. Grinter (2005).
+	\newblock The Quantum in Chemistry: An Experimentalist's View, Ch. 6
+	\newblock {\em Wiley}
 	
 \end{thebibliography}
 	
