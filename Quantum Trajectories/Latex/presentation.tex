@@ -29,7 +29,7 @@
 \renewcommand{\cite}[1]{\footnote<.->[frame]{\fullcite{#1}}}
 
 
-\title[]{Quantum Trajectories: Fact or Fiction?}
+\title[]{Quantum Trajectories and Decoherence}
 \institute[]{Delft University of Technology, The Netherlands}
 \author{Bas Dirkse \and Jaap Wesdorp}
 %\date{}
@@ -46,9 +46,11 @@
 
 \begin{frame}{Outline}
 \begin{itemize}
-	\item Introduction to quantum noise
-	\item Microscopic trajectories
-	\item Density matrix entropy
+	\item Open quantum systems
+	\item Model of environment interaction
+	\item Monte Carlo Algorithm
+	\item Von Neumann Entropy
+	\item Microscopic Trajectories
 	\item Discussion
 \end{itemize}
 \end{frame}
@@ -56,18 +58,64 @@
 \section{Introduction to noise}
 \begin{frame}{Open quantum systems}
 	\begin{itemize}
-		\item 	How to describe a non-isolated system?
-		\item 	\emph{"A Description of open quantum systems in terms of a statistical average over single realizations"}
-		\item We search for physical interpretations of microscopic behaviour based on ensemble behaviour (like exponential decay)
+		\item Open versus closed quantum system
+		\item Evolution of state by non-unitary operator and discontinuous `quantum jumps'
+		\item 	\emph{``A Description of open quantum systems in terms of a statistical average over single realizations"}
 	\end{itemize}
+\end{frame}
+	
+\begin{frame}{The Lindblad Master equation}
+	$$
+	\dot{\rho}(t) = -i [H,\rho] + \sum_j  \gamma_j ( 2 F_j \rho F_j^\dagger - F_j^\dagger F_j \rho - \rho F_j^\dagger F_j  )
+	$$
+Which leads to
+$$
+H_{eff} = H_0 - i \sum_j \gamma_j F_j^\dagger F_j, 
+$$
+$$
+S = \sum S_j, \quad S_j := \gamma F_j \rho F_j^\dagger
+$$
 
+$F_j$ are the quantum jump operators.
 \end{frame}
 
-\begin{frame}{Quantum Monte Carlo Wavefunction}
-		Each small time step we evolve $\bra{\psi}$ according to the following rules
+
+\begin{frame}{Monte Carlo evolution of open quantum system}
+	General idea
+	\begin{itemize}
+		\item Start with a pure state $\ket{\psi}$ 
+		\item An imaginary observer sees if a quantum jump $F_j$ occurred during time $\Delta t$ 
+		\begin{itemize}
+			\item If not, state evolves continuously (but non-unitarilly) with non-hermitian Hamiltonian $H_{eff}$;
+			\item Or the state discontinuously jumps to state $F_j \ket{\psi}$
+		\end{itemize}
+		\item Evolve until time final time $T$
+		\item Repeat process $N$ times from same initial state $\ket{\psi}$ and compute ensemble average $\rho$
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Monte Carlo evolution of open quantum system}
+		Algorithm 
 		\begin{enumerate}
-			\item j
+			\item initiate state $\ket{\psi}$
+			\item Compute probability $p_j = \gamma_j \Delta t \braket{\psi | F_j^\dagger F_j | \psi} $ of jump
+			\item Choose integer $i \in \{0,1,2,...\}$ with probability $(1 - \sum_j p_j), p_1, p_2,...$
+			\item If $i = 0$:  $\ket{\psi} \leftarrow \exp(-iH_{eff}\Delta t)\ket{\psi}$
+			\item Else: $\ket{\psi} \leftarrow F_i \ket{\psi}$
+			\item Renormalize: $\psi \leftarrow \frac{\ket{\psi}}{\sqrt{\braket{\psi|\psi}}}$ and go to 2 
+			\item repeat 1-6 for $N$ times to obtain an ensemble average
 		\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{What did we model?}
+	\begin{itemize}
+		\item A two-level system (qubit) in $\mathcal{H}_2$ split by an energy difference $\hbar \omega$
+		\item The Hamiltonian of the closed system is then $H = \frac{\hbar \omega}{2} \sigma_z$
+		\item We initialize our system in the pure state $\ket{\psi} = \ket{+} = \frac{1}{\sqrt{2}} (\ket{0} + \ket{1})$
+		\item We modeled different possible quantum jumps $F_j$ and examined their individual trajectories as well as their ensemble average.
+	\end{itemize}
 \end{frame}
 
 
