@@ -70,6 +70,16 @@
 		\end{enumerate}
 \end{frame}
 
+\begin{frame}{(De)coherence : Von neumann entropy}
+	Measure of "known" information
+	\begin{equation}
+	S = -Tr(\rho \text{ln}\rho)
+	\end{equation}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{figs/von_neumann_5.jpeg}
+	\end{figure}
+\end{frame}
 
 \section{Microscopic Trajectories}
 \begin{frame}{Microscopic Trajectories: Excited state relaxation}
@@ -97,7 +107,25 @@
 		\end{pmatrix}
 		\end{equation*}
 \end{frame}
-
+\begin{frame}{Entropy : Relaxation average}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{figs/relaxation_1000.eps}
+	\end{figure}
+\end{frame}
+\begin{frame}{Entropy :  Unequal relaxation / excitation times}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{figs/unequal_bitflip_1000.eps}
+	\end{figure}
+\end{frame}
+\begin{frame}{Entropy: Equal relaxation / excitation times }
+	Boson bath in thermal equilibrium
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{figs/equal_bitflip_1000.eps}
+	\end{figure}
+\end{frame}
 
 \begin{frame}{Microscopic Trajectories: Random phase kick}
 	\begin{figure}[h]
@@ -118,6 +146,13 @@
 	\end{equation*}
 \end{frame}
 
+\begin{frame}{Entropy :  Random phase kick average}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{figs/phase_jump_1000.eps}
+	\end{figure}
+\end{frame}
+
 \begin{frame}{Microscopic Trajectories: Phase flip}
 	\begin{figure}[h]
 		\centering
@@ -131,41 +166,27 @@
 	\end{pmatrix}
 	\end{equation*}
 \end{frame}
-\begin{frame}{(De)coherence : Von neumann entropy}
-	Measure of "known" information
-	\begin{equation}
-	S = -Tr(\rho \text{ln}\rho)
-	\end{equation}
+
+\begin{frame}{Entropy :  Phase flip average}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\textwidth]{figs/phase_flip_1000.eps}
+	\end{figure}
 \end{frame}
 
-\begin{frame}{Entropy :  phase flip average}
-		\begin{figure}[h]
-			\centering
-			\includegraphics[width=0.7\textwidth]{figs/phase_flip_1000.eps}
-		\end{figure}
-\end{frame}
-\begin{frame}{Entropy :  phase jump average}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.7\textwidth]{figs/phase_jump_1000.eps}
-	\end{figure}
-\end{frame}
-\begin{frame}{Entropy :  Bit Flip average}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.7\textwidth]{figs/unequal_bitflip_1000.eps}
-	\end{figure}
-\end{frame}
-\begin{frame}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.7\textwidth]{figs/equal_bitflip_1000.eps}
-	\end{figure}
-\end{frame}
 \begin{frame}{Freedom of interpretation}
+	\begin{equation*}
+	\rho = 
+	\begin{pmatrix}
+	1 & 0 \\
+	0 & 1
+	\end{pmatrix}=
+	\ket{0}\bra{0} \hspace{2pt} + \hspace{2pt}\ket{1}\bra{1}=\ket{+}\bra{+} \hspace{2pt}+ \hspace{2pt}\ket{-}\bra{-}
+	\end{equation*}
 	\begin{enumerate}
-		\item Density matrix can be written in many ways
-		\item bla?
+		\item Density matrix can be unraveled in many ways
+		\item Different microscopic density matrix evolution for same exponential decoherence of pure state.
+		\item \emph{There exists no measurement that can distinguish between the different phase damping processes}
 	\end{enumerate}
 \end{frame}
 
